@@ -24,7 +24,7 @@ export const QuickExitButton: React.FC<QuickExitButtonProps> = ({
         aria-label="Quick safety exit to Google"
       >
         <Shield className="w-3.5 h-3.5 text-amber-400" aria-hidden="true" />
-        <span>{t('quick_exit') || 'Quick Exit'}</span>
+        <span>{t('emergency.quick_exit') || 'Quick Exit'}</span>
         <ExternalLink className="w-3 h-3 text-slate-400" aria-hidden="true" />
       </button>
 

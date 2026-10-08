@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LucideIcon, ArrowRight } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface FeatureCardProps {
   title: string;
@@ -19,6 +20,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   badge,
   badgeColor = 'teal',
 }) => {
+  const { t } = useLanguage();
   const badgeClasses = {
     teal: 'bg-teal-50 text-teal-700 border-teal-200',
     indigo: 'bg-primary-50 text-primary-700 border-primary-200',
@@ -52,7 +54,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
       </div>
 
       <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-sm font-semibold text-primary-700 group-hover:text-primary-800">
-        <span>Explore details</span>
+        <span>{t('common.explore_details') || 'Explore details'}</span>
         <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" aria-hidden="true" />
       </div>
     </Link>

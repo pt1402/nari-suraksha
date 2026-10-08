@@ -73,9 +73,14 @@ export const HelpPage: React.FC = () => {
         <div className="bg-amber-50 border border-amber-300 p-4 sm:p-5 rounded-2xl text-xs sm:text-sm text-amber-950 flex items-start gap-3 shadow-sm">
           <ShieldAlert className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <span className="font-bold block text-amber-900">Directory Pre-Launch Verification Notice:</span>
+            <span className="font-bold block text-amber-900">
+              {t('resource.pre_launch_notice_title', { defaultValue: 'Directory Pre-Launch Verification Notice:' })}
+            </span>
             <p className="leading-relaxed">
-              Except for Emergency 112, all contact details below are structured institutional references undergoing administrative verification. In this milestone, telephone numbers are rendered as non-clickable text placeholders. Please verify contact information with official government websites or jurisdictional administrative offices before relying on them for non-emergencies.
+              {t('resource.pre_launch_notice_desc', {
+                defaultValue:
+                  'Except for Emergency 112, all contact details below are structured institutional references undergoing administrative verification. In this milestone, telephone numbers are rendered as non-clickable text placeholders. Please verify contact information with official government websites or jurisdictional administrative offices before relying on them for non-emergencies.',
+              })}
             </p>
           </div>
         </div>
@@ -86,24 +91,40 @@ export const HelpPage: React.FC = () => {
             <SearchBar
               value={search}
               onChange={setSearch}
-              placeholder="Filter by name, category, or keyword..."
+              placeholder={t('help.search_placeholder', { defaultValue: 'Filter by name, category, or keyword...' })}
             />
           </div>
 
           <div className="flex flex-wrap gap-2 w-full sm:w-auto" role="group" aria-label="Helpline category filters">
-            {['all', 'Police & Emergency', 'National Helpline', 'Cyber Crime', 'Legal Aid', 'Counseling & Support'].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setCategoryFilter(cat)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition focus:outline-none focus:ring-2 focus:ring-primary-500 ${
-                  categoryFilter === cat
-                    ? 'bg-primary-800 text-white shadow-sm'
-                    : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
-                }`}
-              >
-                {cat === 'all' ? 'All Helplines' : cat}
-              </button>
-            ))}
+            {['all', 'Police & Emergency', 'National Helpline', 'Cyber Crime', 'Legal Aid', 'Counseling & Support'].map((cat) => {
+              const categoryMap: Record<string, string> = {
+                'Police & Emergency': 'resource.category_police_emergency',
+                'National Helpline': 'resource.category_national_helpline',
+                'Cyber Crime': 'resource.category_cyber_crime',
+                'Legal Aid': 'resource.category_legal_aid',
+                'Counseling & Support': 'resource.category_counseling_support',
+              };
+              const label =
+                cat === 'all'
+                  ? t('resource.all_helplines', { defaultValue: 'All Helplines' })
+                  : categoryMap[cat]
+                  ? t(categoryMap[cat], { defaultValue: cat })
+                  : cat;
+
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setCategoryFilter(cat)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                    categoryFilter === cat
+                      ? 'bg-primary-800 text-white shadow-sm'
+                      : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -117,7 +138,9 @@ export const HelpPage: React.FC = () => {
         {filteredResources.length === 0 && (
           <div className="text-center py-12 bg-white rounded-2xl border border-slate-200 p-8">
             <PhoneCall className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-            <p className="text-slate-700 font-semibold">No helplines match your query.</p>
+            <p className="text-slate-700 font-semibold">
+              {t('resource.no_helplines_match', { defaultValue: 'No helplines match your query.' })}
+            </p>
           </div>
         )}
       </div>

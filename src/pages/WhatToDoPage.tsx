@@ -33,9 +33,14 @@ export const WhatToDoPage: React.FC = () => {
           <div className="flex items-start gap-3">
             <ShieldAlert className="w-5 h-5 text-emergency-700 shrink-0 mt-0.5" aria-hidden="true" />
             <div>
-              <h2 className="font-bold text-sm text-emergency-900">In Active Physical Danger?</h2>
+              <h2 className="font-bold text-sm text-emergency-900">
+                {t('whatToDo.active_danger_title', { defaultValue: 'In Active Physical Danger?' })}
+              </h2>
               <p className="text-xs text-emergency-800 leading-relaxed mt-0.5">
-                Do not navigate lengthy articles or administrative forms if you are currently unsafe. Prioritize moving to safety and call emergency dispatch immediately.
+                {t('whatToDo.active_danger_desc', {
+                  defaultValue:
+                    'Do not navigate lengthy articles or administrative forms if you are currently unsafe. Prioritize moving to safety and call emergency dispatch immediately.',
+                })}
               </p>
             </div>
           </div>
@@ -45,7 +50,7 @@ export const WhatToDoPage: React.FC = () => {
             aria-label={`Emergency phone call to ${EMERGENCY_NUMBER}`}
           >
             <PhoneCall className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Call 112</span>
+            <span>{t('whatToDo.call_112_btn', { defaultValue: 'Call 112' })}</span>
           </a>
         </div>
 

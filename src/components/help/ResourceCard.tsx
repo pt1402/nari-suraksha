@@ -12,6 +12,17 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
   const { t } = useLanguage();
   const isEmergency = resource.isEmergency112 || resource.contactValue === '112';
 
+  const categoryMap: Record<string, string> = {
+    'Police & Emergency': 'resource.category_police_emergency',
+    'National Helpline': 'resource.category_national_helpline',
+    'Cyber Crime': 'resource.category_cyber_crime',
+    'Legal Aid': 'resource.category_legal_aid',
+    'Counseling & Support': 'resource.category_counseling_support',
+  };
+  const categoryLabel = categoryMap[resource.category]
+    ? t(categoryMap[resource.category], { defaultValue: resource.category })
+    : resource.category;
+
   return (
     <div
       className={`rounded-2xl border p-6 sm:p-7 flex flex-col justify-between transition-all bg-white shadow-sm ${
@@ -24,7 +35,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
         {/* Verification Status Banner & Category */}
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
           <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">
-            {resource.category}
+            {categoryLabel}
           </span>
 
           {resource.verificationStatus === 'verified' ? (
@@ -53,14 +64,16 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
         {/* Metadata section */}
         <div className="bg-slate-50/80 rounded-xl p-3.5 border border-slate-200/70 space-y-2 text-xs text-slate-600">
           <div className="flex items-center justify-between gap-2">
-            <span className="text-slate-500 font-medium">Contact Reference:</span>
+            <span className="text-slate-500 font-medium">
+              {t('resource.contact_reference', { defaultValue: 'Contact Reference:' })}
+            </span>
             <span className="font-bold text-slate-900">{resource.contactValue}</span>
           </div>
 
           <div className="flex items-center justify-between gap-2">
             <span className="text-slate-500 font-medium flex items-center gap-1">
               <UserCheck className="w-3.5 h-3.5 text-slate-400" />
-              <span>Source Owner:</span>
+              <span>{t('resource.source_owner', { defaultValue: 'Source Owner:' })}</span>
             </span>
             <span className="text-slate-800 font-medium">{resource.sourceOwner}</span>
           </div>
@@ -68,14 +81,14 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
           <div className="flex items-center justify-between gap-2">
             <span className="text-slate-500 font-medium flex items-center gap-1">
               <Calendar className="w-3.5 h-3.5 text-slate-400" />
-              <span>Last Verified / Review:</span>
+              <span>{t('resource.last_verified', { defaultValue: 'Last Verified / Review:' })}</span>
             </span>
             <span className="text-slate-700">{resource.lastVerifiedDate}</span>
           </div>
 
           {resource.safeDisplayNote && (
             <div className="pt-2 border-t border-slate-200/60 text-[11px] text-slate-500 italic">
-              <strong>Note:</strong> {resource.safeDisplayNote}
+              <strong>{t('common.important_note', { defaultValue: 'Note' })}:</strong> {resource.safeDisplayNote}
             </div>
           )}
         </div>
@@ -90,11 +103,11 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
             aria-label="Direct emergency phone call to 112"
           >
             <PhoneCall className="w-4 h-4 text-amber-300" aria-hidden="true" />
-            <span>Call 112 (Emergency Toll-Free)</span>
+            <span>{t('resource.call_112_toll_free', { defaultValue: 'Call 112 (Emergency Toll-Free)' })}</span>
           </a>
         ) : (
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200">
-            <span>Contact: {resource.contactValue}</span>
+            <span>{t('resource.phone', { defaultValue: 'Contact' })}: {resource.contactValue}</span>
           </div>
         )}
 
@@ -105,12 +118,12 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 hover:text-teal-800 hover:underline"
           >
-            <span>Official Portal</span>
+            <span>{t('resource.official_portal', { defaultValue: 'Official Portal' })}</span>
             <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
           </a>
         ) : (
           <span className="text-[11px] text-slate-500">
-            Source reference: {resource.sourceId}
+            {t('resource.source_reference', { defaultValue: 'Source reference:' })} {resource.sourceId}
           </span>
         )}
       </div>

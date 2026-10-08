@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { CheckCircle2, XCircle, HelpCircle, ArrowRight, RotateCcw } from 'lucide-react';
 import { QuizTopic } from '@/types/quiz';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface QuizCardProps {
   quiz: QuizTopic;
 }
 
 export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
+  const { t } = useLanguage();
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -47,12 +49,18 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
       <div className="flex items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-6">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-2 py-0.5 rounded">
-            Awareness Check
+            {t('quiz.awareness_check', { defaultValue: 'Awareness Check' })}
           </span>
           <h3 className="text-xl font-bold text-slate-900 mt-1">{quiz.title}</h3>
         </div>
         <div className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
-          {!isCompleted ? `Question ${currentIdx + 1} of ${quiz.questions.length}` : 'Completed'}
+          {!isCompleted
+            ? t('quiz.question_progress', {
+                current: currentIdx + 1,
+                total: quiz.questions.length,
+                defaultValue: `Question ${currentIdx + 1} of ${quiz.questions.length}`,
+              })
+            : t('quiz.completed', { defaultValue: 'Completed' })}
         </div>
       </div>
 
@@ -104,7 +112,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
             <div className="bg-primary-50/70 border border-primary-200 rounded-xl p-4 text-xs sm:text-sm text-primary-950 space-y-2">
               <div className="flex items-center gap-2 font-bold text-primary-900">
                 <HelpCircle className="w-4 h-4 text-primary-700" />
-                <span>Legal Explanation:</span>
+                <span>{t('quiz.legal_explanation', { defaultValue: 'Legal Explanation:' })}</span>
               </div>
               <p className="leading-relaxed text-slate-700">{question.explanation}</p>
             </div>
@@ -116,7 +124,11 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
                 onClick={handleNext}
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-800 hover:bg-primary-900 text-white text-sm font-semibold rounded-lg shadow transition focus:outline-none focus:ring-2 focus:ring-primary-600"
               >
-                <span>{currentIdx + 1 < quiz.questions.length ? 'Next Question' : 'View Results'}</span>
+                <span>
+                  {currentIdx + 1 < quiz.questions.length
+                    ? t('quiz.next_question', { defaultValue: 'Next Question' })
+                    : t('quiz.view_results', { defaultValue: 'View Results' })}
+                </span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -127,13 +139,21 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
           <div className="inline-flex p-3 bg-teal-100 rounded-full text-teal-800 mb-2">
             <CheckCircle2 className="w-8 h-8" />
           </div>
-          <h4 className="text-2xl font-bold text-slate-900">Quiz Completed!</h4>
+          <h4 className="text-2xl font-bold text-slate-900">
+            {t('quiz.quiz_completed', { defaultValue: 'Quiz Completed!' })}
+          </h4>
           <p className="text-slate-600 text-sm">
-            You scored <strong className="text-primary-800">{score}</strong> out of{' '}
-            <strong className="text-primary-800">{quiz.questions.length}</strong>.
+            {t('quiz.score_text', {
+              score,
+              total: quiz.questions.length,
+              defaultValue: `You scored ${score} out of ${quiz.questions.length}.`,
+            })}
           </p>
           <p className="text-xs text-slate-500 max-w-md mx-auto">
-            Review the legal guides and rights sections to strengthen your knowledge of rights and safe procedures.
+            {t('quiz.score_advice', {
+              defaultValue:
+                'Review the legal guides and rights sections to strengthen your knowledge of rights and safe procedures.',
+            })}
           </p>
           <div className="pt-4">
             <button
@@ -141,7 +161,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
               className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium rounded-lg transition"
             >
               <RotateCcw className="w-4 h-4" />
-              <span>Retry Quiz</span>
+              <span>{t('quiz.retry_quiz', { defaultValue: 'Retry Quiz' })}</span>
             </button>
           </div>
         </div>

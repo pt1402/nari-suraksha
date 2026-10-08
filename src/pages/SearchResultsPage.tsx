@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useSearch } from '@/hooks/useSearch';
+import { useLanguage } from '@/hooks/useLanguage';
 import { HighlightMatch } from '@/components/search/HighlightMatch';
 import { SearchResultType, SearchResultItem } from '@/types/search';
 
@@ -66,8 +67,21 @@ const SUGGESTED_TOPICS = [
 ];
 
 export const SearchResultsPage: React.FC = () => {
+  const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const initialUrlQuery = searchParams.get('q') || '';
+
+  const getTypeLabel = (type: SearchResultType) => {
+    const map: Record<SearchResultType, string> = {
+      Guide: 'search.type_guide',
+      Law: 'search.type_law',
+      Help: 'search.type_help',
+      FAQ: 'search.type_faq',
+      Steps: 'search.type_steps',
+      Quiz: 'search.type_quiz',
+    };
+    return t(map[type], { defaultValue: type });
+  };
 
   const { query, setQuery, results, clearQuery } = useSearch(initialUrlQuery, 100);
   const [selectedType, setSelectedType] = useState<SearchResultType | 'ALL'>('ALL');
@@ -155,7 +169,7 @@ export const SearchResultsPage: React.FC = () => {
             type="search"
             value={query}
             onChange={(e) => handleQueryChange(e.target.value)}
-            placeholder="Search safety topics, rights, laws, or help…"
+            placeholder={t('common.search_placeholder', { defaultValue: 'Search safety topics, rights, laws, or help…' })}
             autoComplete="off"
             spellCheck="false"
             className="w-full pl-12 pr-12 py-3.5 bg-white text-slate-900 border border-slate-300 rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm transition"
@@ -249,14 +263,13 @@ export const SearchResultsPage: React.FC = () => {
                     : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
                 }`}
               >
-                All ({typeCounts.ALL})
+                {t('common.view_all', { defaultValue: 'All' })} ({typeCounts.ALL})
               </button>
 
               {(['Guide', 'Law', 'Help', 'FAQ', 'Steps', 'Quiz'] as SearchResultType[]).map(
                 (type) => {
                   const count = typeCounts[type] || 0;
                   if (count === 0) return null;
-                  const cfg = TYPE_CONFIG[type];
 
                   return (
                     <button
@@ -271,7 +284,7 @@ export const SearchResultsPage: React.FC = () => {
                           : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
                       }`}
                     >
-                      {cfg.label} ({count})
+                      {getTypeLabel(type)} ({count})
                     </button>
                   );
                 }
@@ -301,7 +314,7 @@ export const SearchResultsPage: React.FC = () => {
                           className={`inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${cfg.color}`}
                         >
                           <IconComponent className="w-3 h-3" aria-hidden="true" />
-                          <span>{cfg.label}</span>
+                          <span>{getTypeLabel(item.type)}</span>
                         </span>
 
                         {item.category && (
@@ -317,12 +330,12 @@ export const SearchResultsPage: React.FC = () => {
                           {item.verificationStatus === 'verified' ? (
                             <span className="inline-flex items-center gap-1 text-[11px] text-teal-800 bg-teal-50 px-2 py-0.5 rounded border border-teal-200 font-medium">
                               <ShieldCheck className="w-3.5 h-3.5 text-teal-600" aria-hidden="true" />
-                              <span>Verified Official Source</span>
+                              <span>{t('common.verified_official_source', { defaultValue: 'Verified Official Source' })}</span>
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1 text-[11px] text-amber-900 bg-amber-50 px-2 py-0.5 rounded border border-amber-300 font-medium">
                               <AlertTriangle className="w-3.5 h-3.5 text-amber-600" aria-hidden="true" />
-                              <span>Verify from official source before public launch</span>
+                              <span>{t('common.verify_before_launch', { defaultValue: 'Verify from official source before public launch' })}</span>
                             </span>
                           )}
                         </div>

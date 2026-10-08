@@ -61,7 +61,9 @@ export const FAQPage: React.FC = () => {
                     : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
                 }`}
               >
-                {cat === 'all' ? t('faq.all_questions', { defaultValue: 'All Questions' }) : cat}
+                {cat === 'all'
+                  ? t('faq.all_questions', { defaultValue: 'All Questions' })
+                  : t(`faq.category_${cat}`, { defaultValue: cat })}
               </button>
             ))}
           </div>

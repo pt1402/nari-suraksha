@@ -64,7 +64,9 @@ export const RightsPage: React.FC = () => {
                     : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
                 }`}
               >
-                {cat === 'all' ? t('rights.all_categories', { defaultValue: 'All 10 Topics' }) : `${cat} Topics`}
+                {cat === 'all'
+                  ? t('rights.all_categories', { defaultValue: 'All 10 Topics' })
+                  : t(`rights.${cat}_topics`, { defaultValue: `${cat} Topics` })}
               </button>
             ))}
           </div>
@@ -80,7 +82,7 @@ export const RightsPage: React.FC = () => {
               <div>
                 <div className="flex items-center justify-between gap-3 mb-3">
                   <span className="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-md border border-teal-200">
-                    {topic.category}
+                    {t(`rights.category_${topic.category}`, { defaultValue: topic.category })}
                   </span>
                   <Scale className="w-4 h-4 text-primary-700" aria-hidden="true" />
                 </div>
@@ -100,7 +102,9 @@ export const RightsPage: React.FC = () => {
 
                 {/* Key Points snippet */}
                 <div className="space-y-1.5 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
-                  <span className="text-xs font-bold text-slate-800 block">Safer Steps Overview:</span>
+                  <span className="text-xs font-bold text-slate-800 block">
+                    {t('common.safer_steps_overview', { defaultValue: 'Safer Steps Overview' })}:
+                  </span>
                   <ul className="space-y-1 text-xs text-slate-600">
                     {topic.saferNextSteps.slice(0, 2).map((step, idx) => (
                       <li key={idx} className="flex items-start gap-2">
@@ -128,13 +132,15 @@ export const RightsPage: React.FC = () => {
               </div>
 
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-slate-400">Reviewed: {topic.lastReviewedDate}</span>
+                <span className="text-slate-400">
+                  {t('common.reviewed', { defaultValue: 'Reviewed' })}: {topic.lastReviewedDate}
+                </span>
                 <Link
                   to={`/rights/${topic.slug}`}
                   className="inline-flex items-center gap-1.5 font-bold text-primary-700 hover:text-primary-900 group"
                   aria-label={`Read full awareness guide for ${topic.title}`}
                 >
-                  <span>Read Full Guide</span>
+                  <span>{t('common.read_full_guide', { defaultValue: 'Read Full Guide' })}</span>
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
@@ -145,8 +151,14 @@ export const RightsPage: React.FC = () => {
         {filteredTopics.length === 0 && (
           <div className="text-center py-12 bg-white rounded-2xl border border-slate-200 p-8">
             <Shield className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-            <p className="text-slate-700 font-semibold">No topics match your filter or search query.</p>
-            <p className="text-xs text-slate-500 mt-1">Try resetting category filters or searching for "Domestic", "Cyber", or "Workplace".</p>
+            <p className="text-slate-700 font-semibold">
+              {t('rights.no_topics_match', { defaultValue: 'No topics match your filter or search query.' })}
+            </p>
+            <p className="text-xs text-slate-500 mt-1">
+              {t('rights.reset_filter_hint', {
+                defaultValue: 'Try resetting category filters or searching for "Domestic", "Cyber", or "Workplace".',
+              })}
+            </p>
           </div>
         )}
       </div>

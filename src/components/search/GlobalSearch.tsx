@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, ArrowRight, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { useSearch } from '@/hooks/useSearch';
+import { useLanguage } from '@/hooks/useLanguage';
 import { HighlightMatch } from './HighlightMatch';
 import { SearchResultItem, SearchResultType } from '@/types/search';
 
@@ -25,10 +26,23 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({
   className = '',
   isMobile = false,
 }) => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
+
+  const getTypeLabel = (type: SearchResultType) => {
+    const map: Record<SearchResultType, string> = {
+      Guide: 'search.type_guide',
+      Law: 'search.type_law',
+      Help: 'search.type_help',
+      FAQ: 'search.type_faq',
+      Steps: 'search.type_steps',
+      Quiz: 'search.type_quiz',
+    };
+    return t(map[type], { defaultValue: type });
+  };
 
   const {
     query,
@@ -187,7 +201,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({
             }
           }}
           onKeyDown={handleKeyDown}
-          placeholder="Search safety topics, rights, laws, or help…"
+          placeholder={t('common.search_placeholder', { defaultValue: 'Search safety topics, rights, laws, or help…' })}
           aria-autocomplete="list"
           aria-controls="global-search-suggestions"
           aria-expanded={isOpen}
@@ -211,8 +225,8 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({
                 inputRef.current?.focus();
               }}
               className="p-1 rounded text-primary-300 hover:text-white hover:bg-primary-700/60 focus:outline-none focus:ring-1 focus:ring-amber-400"
-              aria-label="Clear search input"
-              title="Clear search"
+              aria-label={t('common.clear_search', { defaultValue: 'Clear search input' })}
+              title={t('common.clear_search', { defaultValue: 'Clear search' })}
             >
               <X className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
@@ -282,7 +296,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({
                         <span
                           className={`text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${badge.className}`}
                         >
-                          {badge.label}
+                          {getTypeLabel(item.type)}
                         </span>
                         <h4 className="text-xs sm:text-sm font-semibold text-slate-900 truncate">
                           <HighlightMatch text={item.title} query={query} />
@@ -295,12 +309,14 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({
                           {item.verificationStatus === 'verified' ? (
                             <span className="inline-flex items-center gap-0.5 text-teal-700 font-medium bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200">
                               <ShieldCheck className="w-3 h-3 text-teal-600" aria-hidden="true" />
-                              <span className="hidden sm:inline">Verified</span>
+                              <span className="hidden sm:inline">
+                                {t('common.verified', { defaultValue: 'Verified' })}
+                              </span>
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-0.5 text-amber-800 font-medium bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
                               <AlertTriangle className="w-3 h-3 text-amber-600" aria-hidden="true" />
-                              <span>Verify</span>
+                              <span>{t('common.verify_warning', { defaultValue: 'Verify' })}</span>
                             </span>
                           )}
                         </div>
@@ -316,7 +332,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({
                     {item.type === 'Help' && item.verificationStatus && item.verificationStatus !== 'verified' && (
                       <div className="mt-0.5 flex items-center gap-1 text-[10px] text-amber-800 bg-amber-50/80 px-2 py-0.5 rounded border border-amber-200">
                         <AlertTriangle className="w-3 h-3 text-amber-600 shrink-0" aria-hidden="true" />
-                        <span>Verify from official source before public launch</span>
+                        <span>{t('common.verify_before_launch', { defaultValue: 'Verify from official source before public launch' })}</span>
                       </div>
                     )}
                   </li>
@@ -380,7 +396,9 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({
                 onClick={submitSearch}
                 className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 bg-teal-700 hover:bg-teal-800 text-white rounded-lg text-xs font-semibold transition"
               >
-                <span>View all results for "{query.trim()}"</span>
+                <span>
+                  {t('common.view_all', { defaultValue: 'View all' })} "{query.trim()}"
+                </span>
                 <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
               </button>
             </div>

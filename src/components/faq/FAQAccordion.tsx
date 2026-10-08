@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ArrowRight, Tag } from 'lucide-react';
 import { FAQItem } from '@/types/content';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface FAQAccordionProps {
   faqs: FAQItem[];
 }
 
 export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
+  const { t } = useLanguage();
   const [openId, setOpenId] = useState<string | null>(null);
 
   const toggle = (id: string) => {
@@ -56,7 +58,9 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
                 {/* Related topics link */}
                 {faq.relatedTopicSlugs && faq.relatedTopicSlugs.length > 0 && (
                   <div className="pt-2 border-t border-slate-200/60 flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold text-slate-800">Related Topic Guides:</span>
+                    <span className="text-xs font-bold text-slate-800">
+                      {t('common.related_guides', { defaultValue: 'Related Topic Guides:' })}
+                    </span>
                     {faq.relatedTopicSlugs.map((slug) => (
                       <Link
                         key={slug}
@@ -83,7 +87,9 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
                       </span>
                     ))}
                   </div>
-                  <span>Reviewed: {faq.lastReviewedDate}</span>
+                  <span>
+                    {t('common.reviewed', { defaultValue: 'Reviewed' })}: {faq.lastReviewedDate}
+                  </span>
                 </div>
               </div>
             )}
