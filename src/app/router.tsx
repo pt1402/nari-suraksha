@@ -16,6 +16,7 @@ import { PrivacyPage } from '@/pages/PrivacyPage';
 import { DisclaimerPage } from '@/pages/DisclaimerPage';
 import { SourcesPage } from '@/pages/SourcesPage';
 import { AccessibilityPage } from '@/pages/AccessibilityPage';
+import { SearchResultsPage } from '@/pages/SearchResultsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
 export const router = createBrowserRouter([
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: 'search',
+        element: <SearchResultsPage />,
       },
       {
         path: 'rights',

@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { X, Shield, PhoneCall } from 'lucide-react';
 import { NAV_LINKS, EMERGENCY_NUMBER } from '@/lib/constants';
 import { LanguageSelector } from './LanguageSelector';
+import { GlobalSearch } from '../search/GlobalSearch';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -89,6 +90,11 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
 
+        {/* Global Search inside mobile drawer */}
+        <div className="p-3 border-b border-primary-800/80 bg-primary-900/70">
+          <GlobalSearch isMobile onNavigate={onClose} />
+        </div>
+
         {/* Language selector in mobile drawer */}
         <div className="p-3 sm:p-4 border-b border-primary-800/60 bg-primary-900/50 flex items-center justify-between">
           <span className="text-xs text-primary-200 font-medium">Language:</span>
@@ -102,10 +108,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `flex items-center px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-primary-800 text-teal-300 font-semibold border-l-4 border-teal-400'
-                    : 'text-primary-100 hover:bg-primary-900/80 hover:text-white'
+                `flex items-center px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors ${isActive
+                  ? 'bg-primary-800 text-teal-300 font-semibold border-l-4 border-teal-400'
+                  : 'text-primary-100 hover:bg-primary-900/80 hover:text-white'
                 }`
               }
             >

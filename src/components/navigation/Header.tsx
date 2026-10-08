@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Shield, Menu } from 'lucide-react';
+import { Shield, Menu, Search } from 'lucide-react';
 import { APP_NAME, NAV_LINKS } from '@/lib/constants';
 import { LanguageSelector } from './LanguageSelector';
 import { FontSizeAdjuster } from '../accessibility/FontSizeAdjuster';
 import { QuickExitButton } from '../emergency/QuickExitButton';
+import { GlobalSearch } from '../search/GlobalSearch';
 import { MobileMenu } from './MobileMenu';
 
 export const Header: React.FC = () => {
@@ -28,11 +29,11 @@ export const Header: React.FC = () => {
 
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-4">
+        <div className="flex items-center justify-between h-16 gap-3 sm:gap-4">
           {/* Brand Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg p-1 -ml-1"
+            className="flex items-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg p-1 -ml-1 shrink-0"
           >
             <div className="p-2 bg-gradient-to-br from-teal-500 to-primary-700 rounded-xl shadow-inner text-white">
               <Shield className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
@@ -47,17 +48,21 @@ export const Header: React.FC = () => {
             </div>
           </Link>
 
+          {/* Desktop Global Search Field */}
+          <div className="hidden md:block flex-1 max-w-xs lg:max-w-sm xl:max-w-md mx-2">
+            <GlobalSearch />
+          </div>
+
           {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-1" aria-label="Main navigation">
+          <nav className="hidden xl:flex items-center gap-1 shrink-0" aria-label="Main navigation">
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `px-3 py-2 rounded-md text-xs font-semibold tracking-wide transition-colors ${
-                    isActive
-                      ? 'bg-primary-800 text-teal-300 shadow-sm border-b-2 border-teal-400'
-                      : 'text-primary-100 hover:text-white hover:bg-primary-800/60'
+                  `px-2.5 py-1.5 rounded-md text-xs font-semibold tracking-wide transition-colors ${isActive
+                    ? 'bg-primary-800 text-teal-300 shadow-sm border-b-2 border-teal-400'
+                    : 'text-primary-100 hover:text-white hover:bg-primary-800/60'
                   }`
                 }
               >
@@ -67,7 +72,7 @@ export const Header: React.FC = () => {
           </nav>
 
           {/* Desktop Tablet Compact Links */}
-          <div className="hidden lg:flex xl:hidden items-center gap-1">
+          <div className="hidden lg:flex xl:hidden items-center gap-1 shrink-0">
             <NavLink
               to="/rights"
               className="px-2.5 py-1.5 rounded text-xs font-medium text-primary-100 hover:bg-primary-800"
@@ -94,9 +99,17 @@ export const Header: React.FC = () => {
             </NavLink>
           </div>
 
-          {/* Mobile hamburger button */}
-          <div className="flex items-center gap-2 xl:hidden">
+          {/* Mobile search & hamburger controls */}
+          <div className="flex items-center gap-1.5 xl:hidden">
             <QuickExitButton className="sm:hidden" />
+            <Link
+              to="/search"
+              className="p-2 rounded-lg bg-primary-800 text-primary-100 hover:text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-teal-400 md:hidden"
+              aria-label="Open search page"
+              title="Search"
+            >
+              <Search className="w-5 h-5" aria-hidden="true" />
+            </Link>
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(true)}
