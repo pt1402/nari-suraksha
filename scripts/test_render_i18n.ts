@@ -69,11 +69,72 @@ async function testRuntimeI18n() {
       throw new Error(`Pending resource must NOT be clickable phone in ${lang}`);
     }
 
-    console.log(`  - All 5 verified phone numbers (112, 181, 14490, 15100, 1930) are clickable.`);
-    console.log(`  - In-person (OSC) and pending resource are verified non-clickable.\n`);
+    // 3. Validate Homepage Emergency Contacts separation
+    const { emergencyContacts: contacts } = await import(`../src/content/${lang}/resources`);
+    const emergencyOnly112 = contacts.filter((c: any) => c.isClickableEmergency);
+    if (emergencyOnly112.length !== 1 || emergencyOnly112[0].number !== '112') {
+      throw new Error(`Exactly one contact (112) must have isClickableEmergency: true in ${lang}`);
+    }
+
+    const nonEmergency112 = contacts.filter((c: any) => c.number !== '112');
+    for (const nec of nonEmergency112) {
+      if (nec.isClickableEmergency) {
+        throw new Error(`Contact ${nec.number} must NOT have isClickableEmergency: true in ${lang}`);
+      }
+    }
+
+    // 4. Validate Homepage Specific I18n Keys
+    const homeLabels = [
+      'home.quick_emergency_ref',
+      'home.other_support_title',
+      'home.call_112_now',
+      'home.call_181',
+      'home.call_14490',
+      'home.call_15100',
+      'home.call_1930',
+      'home.tag_womens_support',
+      'home.tag_ncw_support',
+      'home.tag_legal_aid',
+      'home.tag_financial_fraud',
+      'home.view_all_resources',
+      'home.emergency_response',
+      'home.not_emergency_service',
+    ];
+
+    for (const key of homeLabels) {
+      const val = i18n.t(key);
+      if (!val || val === key) {
+        throw new Error(`Missing or unresolved translation for key ${key} in ${lang}`);
+      }
+    }
+
+    // 5. Search test for resource numbers
+    const { searchContent } = await import('../src/lib/search');
+    const search112 = searchContent('112');
+    const search181 = searchContent('181');
+    const search1930 = searchContent('1930');
+    const search14490 = searchContent('14490');
+    const search15100 = searchContent('15100');
+
+    if (!search112.some((r) => r.title.includes('112') || r.description.includes('112'))) {
+      throw new Error(`Search for 112 should return ERSS 112 in ${lang}`);
+    }
+    if (!search181.some((r) => r.title.includes('181') || r.description.includes('181'))) {
+      throw new Error(`Search for 181 should return Women Helpline in ${lang}`);
+    }
+    if (!search1930.some((r) => r.title.includes('1930') || r.description.includes('1930'))) {
+      throw new Error(`Search for 1930 should return Cyber Crime in ${lang}`);
+    }
+    if (!search14490.some((r) => r.id.includes('res-ncw-helpline') || r.title.includes('NCW') || r.content.includes('14490'))) {
+      throw new Error(`Search for 14490 should return NCW Helpline in ${lang}`);
+    }
+    if (!search15100.some((r) => r.id.includes('res-nalsa-legal-aid') || r.title.includes('NALSA') || r.content.includes('15100'))) {
+      throw new Error(`Search for 15100 should return NALSA Legal Aid in ${lang}`);
+    }
+    console.log(`  - Search correctly resolves numbers 112, 181, 1930, 14490, 15100 in ${lang}.\n`);
   }
 
-  console.log('✅ All public-facing resource card and phone link tests passed successfully!');
+  console.log('✅ All public-facing resource card, search, and homepage separation tests passed successfully!');
 }
 
 testRuntimeI18n().catch((err) => {

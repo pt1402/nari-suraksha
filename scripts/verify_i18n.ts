@@ -142,6 +142,22 @@ const REQUIRED_UI_LABELS = [
   'disclaimer.emergency_instruction',
   'disclaimer.not_legal_advice',
   'disclaimer.not_emergency_service',
+
+  // homepage emergency & support
+  'home.quick_emergency_ref',
+  'home.other_support_title',
+  'home.call_112_now',
+  'home.call_181',
+  'home.call_14490',
+  'home.call_15100',
+  'home.call_1930',
+  'home.tag_womens_support',
+  'home.tag_ncw_support',
+  'home.tag_legal_aid',
+  'home.tag_financial_fraud',
+  'home.view_all_resources',
+  'home.emergency_response',
+  'home.not_emergency_service',
 ];
 
 async function verifyI18n() {

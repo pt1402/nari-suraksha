@@ -229,10 +229,11 @@ export function buildSearchIndex(): SearchIndexItem[] {
         title: resource.name,
         type: 'Help',
         description: resource.description,
-        content: `${resource.category} ${resource.contactType} ${resource.safeDisplayNote || ''} ${resource.sourceOwner}`,
+        content: `${resource.contactValue} ${resource.category} ${resource.contactType} ${resource.safeDisplayNote || ''} ${resource.sourceOwner}`,
         url: '/get-help',
-        tags: [resource.category, 'Helpline', 'Support'],
+        tags: [resource.category, 'Helpline', 'Support', resource.contactValue].filter(Boolean),
         synonyms: [
+          resource.contactValue,
           resource.isEmergency112 ? 'emergency 112 police ambulance fire 112' : '',
           resource.category.toLowerCase(),
         ].filter(Boolean),

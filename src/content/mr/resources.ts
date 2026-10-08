@@ -13,28 +13,28 @@ export const emergencyContacts: EmergencyContact[] = [
     number: '181',
     description: 'संकटग्रस्त महिलांसाठी राष्ट्रीय 24/7 टोल-फ्री साहाय्य आणि संदर्भ हेल्पलाइन.',
     available: '24/7 राष्ट्रीय साहाय्य संदर्भ',
-    isClickableEmergency: true,
+    isClickableEmergency: false,
   },
   {
     label: 'राष्ट्रीय महिला आयोग (NCW) हेल्पलाइन',
     number: '14490',
     description: 'संकट किंवा हिंसाचाराचा सामना करणाऱ्या महिलांसाठी राष्ट्रीय महिला आयोगाची अधिकृत हेल्पलाइन.',
     available: 'राष्ट्रीय साहाय्य आणि संदर्भ',
-    isClickableEmergency: true,
+    isClickableEmergency: false,
   },
   {
     label: 'नालसा (NALSA) कायदेशीर मदत हेल्पलाइन',
     number: '15100',
     description: 'वैधानिक अधिकार आणि मोफत कायदेशीर मदतीसाठी देशव्यापी टोल-फ्री हेल्पलाइन.',
     available: 'मोफत कायदेशीर मदत आणि मार्गदर्शन',
-    isClickableEmergency: true,
+    isClickableEmergency: false,
   },
   {
     label: 'राष्ट्रीय सायबर गुन्हे हेल्पलाइन (आर्थिक फसवणूक)',
     number: '1930',
     description: 'ऑनलाइन आर्थिक सायबर फसवणुकीची त्वरित तक्रार नोंदवण्यासाठी अधिकृत राष्ट्रीय हेल्पलाइन.',
     available: 'आर्थिक सायबर फसवणूक साहाय्य',
-    isClickableEmergency: true,
+    isClickableEmergency: false,
   },
 ];
 

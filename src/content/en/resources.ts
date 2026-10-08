@@ -13,28 +13,28 @@ export const emergencyContacts: EmergencyContact[] = [
     number: '181',
     description: 'National 24/7 toll-free support and referral helpline for women in distress.',
     available: '24/7 National Support',
-    isClickableEmergency: true,
+    isClickableEmergency: false,
   },
   {
     label: 'NCW Women Helpline',
     number: '14490',
     description: 'Official National Commission for Women helpline for women facing violence or distress.',
     available: 'National Support & Referral',
-    isClickableEmergency: true,
+    isClickableEmergency: false,
   },
   {
     label: 'NALSA Legal Aid Helpline',
     number: '15100',
     description: 'Toll-free national legal aid helpline identifying statutory entitlements and DLSA clinics.',
     available: 'Free Legal Aid & Guidance',
-    isClickableEmergency: true,
+    isClickableEmergency: false,
   },
   {
     label: 'National Cyber Crime Helpline (Online Financial Fraud)',
     number: '1930',
     description: 'Official national cybercrime helpline for reporting online financial scams and fraud.',
     available: 'Financial Cyber Fraud Assistance',
-    isClickableEmergency: true,
+    isClickableEmergency: false,
   },
 ];
 
