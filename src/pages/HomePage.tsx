@@ -121,20 +121,31 @@ export const HomePage: React.FC = () => {
         {/* Section 1: Emergency Quick Reference (112 ONLY) */}
         <section
           aria-label="Emergency quick reference"
-          className="bg-gradient-to-br from-emergency-950 via-slate-900 to-emergency-900 text-white p-6 sm:p-8 rounded-2xl shadow-lg border-2 border-emergency-600 relative overflow-hidden"
+          className="bg-[#111936] text-white p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-[#1e295d] relative overflow-hidden"
+          style={{ backgroundColor: '#111936' }}
         >
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
-            <div className="space-y-3 max-w-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emergency-600/40 border border-emergency-500 text-emergency-200 text-xs font-bold uppercase tracking-wider">
-                <AlertTriangle className="w-4 h-4 text-amber-300 animate-pulse" aria-hidden="true" />
-                <span>{t('home.quick_emergency_ref', { defaultValue: 'Emergency Quick Reference' })}</span>
-                <span className="mx-1">•</span>
-                <span className="text-amber-300">{t('home.emergency_response', { defaultValue: 'Emergency Response' })}</span>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 relative z-10">
+            {/* Left content panel: Dark Navy (#111936) with high-contrast text */}
+            <div className="space-y-4 max-w-xl">
+              {/* Emergency Accent Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1e295d] border border-[#FBBF24]/50 shadow-sm">
+                <AlertTriangle className="w-4 h-4 text-[#FBBF24] flex-shrink-0" aria-hidden="true" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#FBBF24]">
+                  {t('home.quick_emergency_ref', { defaultValue: 'Emergency Quick Reference' })}
+                </span>
+                <span className="text-[#FBBF24]/60 text-xs">•</span>
+                <span className="text-xs font-bold text-amber-300">
+                  {t('home.emergency_response', { defaultValue: 'Emergency Response' })}
+                </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+
+              {/* Main Heading: Pure White #FFFFFF */}
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
                 {t('home.in_crisis_title', { defaultValue: 'In Crisis or Immediate Danger?' })}
               </h2>
-              <p className="text-slate-200 text-sm sm:text-base leading-relaxed">
+
+              {/* Emergency Description: Clear Near-White #E5E7EB */}
+              <p className="text-[#E5E7EB] text-sm sm:text-base leading-relaxed">
                 {emergency112Resource?.description ||
                   t('home.emergency_card_desc', {
                     defaultValue:
@@ -143,26 +154,29 @@ export const HomePage: React.FC = () => {
               </p>
             </div>
 
-            {/* Exactly one primary emergency card: 112 */}
+            {/* Right card: Exactly one primary emergency card: 112 in bold red emergency styling */}
             <div className="w-full lg:w-auto flex-shrink-0">
               {emergency112Resource && emergency112Resource.contactValue === '112' ? (
-                <div className="bg-emergency-900/90 border-2 border-emergency-500 rounded-2xl p-6 shadow-xl flex flex-col items-center text-center space-y-4 min-w-[280px] sm:min-w-[320px] ring-2 ring-emergency-400/40">
-                  <div className="flex items-center gap-2">
+                <div
+                  className="bg-emergency-900 border-2 border-emergency-500 rounded-2xl p-6 shadow-2xl flex flex-col items-center text-center space-y-4 min-w-[280px] sm:min-w-[320px] ring-2 ring-emergency-400/40"
+                  style={{ backgroundColor: '#7f1d1d' }}
+                >
+                  <div className="flex items-center gap-2.5">
                     <span className="p-2 bg-emergency-800 rounded-xl text-white shadow-inner">
                       <PhoneCall className="w-6 h-6 text-amber-300 animate-bounce" aria-hidden="true" />
                     </span>
                     <div className="text-left">
-                      <span className="text-[11px] font-semibold text-emergency-200 uppercase tracking-wider block">
+                      <span className="text-[11px] font-bold text-white uppercase tracking-wider block">
                         {emergency112Resource.name}
                       </span>
-                      <span className="text-xs font-bold text-teal-300">
+                      <span className="text-xs font-bold text-amber-300">
                         {t('emergency.toll_free_national', { defaultValue: '24/7 Toll-Free Emergency' })}
                       </span>
                     </div>
                   </div>
 
                   <div className="py-2">
-                    <span className="text-5xl font-black text-white tracking-wider font-mono block drop-shadow-sm">
+                    <span className="text-5xl font-black text-white tracking-wider font-mono block drop-shadow-md">
                       {emergency112Resource.contactValue}
                     </span>
                   </div>
@@ -176,13 +190,13 @@ export const HomePage: React.FC = () => {
                     <span>{t('home.call_112_now', { defaultValue: 'Call 112 Now' })}</span>
                   </a>
 
-                  <p className="text-[11px] text-slate-300 leading-snug">
+                  <p className="text-[11px] text-white/90 leading-snug">
                     {emergency112Resource.safeDisplayNote ||
                       'Nationwide emergency platform linking citizens directly to local police, medical, and fire dispatch teams.'}
                   </p>
                 </div>
               ) : (
-                <div className="p-6 bg-red-950/80 border border-red-500 rounded-xl text-red-200 text-sm">
+                <div className="p-6 bg-red-950 border border-red-500 rounded-xl text-red-200 text-sm">
                   {t('home.emergency_112_unavailable', {
                     defaultValue:
                       'Emergency 112 contact is temporarily unavailable. Please dial 112 directly from any mobile or landline phone.',
