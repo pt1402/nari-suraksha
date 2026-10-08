@@ -7,6 +7,8 @@ import { WhatToDoPage } from '@/pages/WhatToDoPage';
 import { CyberSafetyPage } from '@/pages/CyberSafetyPage';
 import { WorkplaceSafetyPage } from '@/pages/WorkplaceSafetyPage';
 import { LawsPage } from '@/pages/LawsPage';
+import { OrganizationsPage } from '@/pages/OrganizationsPage';
+import { FreeLegalAidPage } from '@/pages/FreeLegalAidPage';
 import { HelpPage } from '@/pages/HelpPage';
 import { FAQPage } from '@/pages/FAQPage';
 import { QuizPage } from '@/pages/QuizPage';
@@ -37,6 +39,10 @@ export const router = createBrowserRouter([
         element: <RightsPage />,
       },
       {
+        path: 'rights/free-legal-aid',
+        element: <FreeLegalAidPage />,
+      },
+      {
         path: 'rights/:slug',
         element: <TopicPage />,
       },
@@ -59,6 +65,10 @@ export const router = createBrowserRouter([
       {
         path: 'get-help',
         element: <HelpPage />,
+      },
+      {
+        path: 'get-help/organizations',
+        element: <OrganizationsPage />,
       },
       {
         path: 'faq',

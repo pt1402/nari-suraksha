@@ -6,6 +6,7 @@ import {
   getTopicsData,
   getLawsData,
   getHelpResourcesData,
+  getOrganizationsData,
   getEmergencyContacts,
   getFaqsData,
   getQuizzesData,
@@ -15,6 +16,7 @@ import {
 } from '@/content';
 import { TopicItem, LawItem, FAQItem } from '@/types/content';
 import { HelpResource, EmergencyContact } from '@/types/resources';
+import { OrganizationResource } from '@/types/organizations';
 import { QuizTopic } from '@/types/quiz';
 import { WorkflowGuide, SafeNextStepsFlowData, ConcernOption } from '@/types/workflow';
 
@@ -25,6 +27,7 @@ export interface LanguageContextType {
   topicsData: TopicItem[];
   lawsData: LawItem[];
   helpResourcesData: HelpResource[];
+  organizationsData: OrganizationResource[];
   emergencyContacts: EmergencyContact[];
   faqsData: FAQItem[];
   quizzesData: QuizTopic[];
@@ -69,6 +72,7 @@ const LanguageContextProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       topicsData: getTopicsData(currentLanguage),
       lawsData: getLawsData(currentLanguage),
       helpResourcesData: getHelpResourcesData(currentLanguage),
+      organizationsData: getOrganizationsData(currentLanguage),
       emergencyContacts: getEmergencyContacts(currentLanguage),
       faqsData: getFaqsData(currentLanguage),
       quizzesData: getQuizzesData(currentLanguage),

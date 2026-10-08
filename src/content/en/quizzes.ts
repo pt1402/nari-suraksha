@@ -30,7 +30,8 @@ export const quizzesData: QuizTopic[] = [
           'Only individuals with a recommendation letter.',
         ],
         correctAnswerIndex: 1,
-        explanation: 'Under Section 12 of the Legal Services Authorities Act, 1987, all women are entitled to free legal aid.',
+        explanation:
+          'Under Section 12(c) of the Legal Services Authorities Act, 1987, a woman is identified as a category eligible to seek legal services. Applications, services, and current procedures should be confirmed with NALSA or the relevant Legal Services Authority. NALSA states that a woman is entitled to free legal aid irrespective of income or financial status.',
       },
     ],
   },

@@ -1,6 +1,7 @@
 import { Language } from '@/types/content';
 import { TopicItem, LawItem, FAQItem } from '@/types/content';
 import { HelpResource, EmergencyContact } from '@/types/resources';
+import { OrganizationResource } from '@/types/organizations';
 import { QuizTopic } from '@/types/quiz';
 import { WorkflowGuide, SafeNextStepsFlowData } from '@/types/workflow';
 
@@ -15,6 +16,10 @@ import { lawsData as mrLaws } from './mr/laws';
 import { helpResourcesData as enResources, emergencyContacts as enEmergency } from './en/resources';
 import { helpResourcesData as hiResources, emergencyContacts as hiEmergency } from './hi/resources';
 import { helpResourcesData as mrResources, emergencyContacts as mrEmergency } from './mr/resources';
+
+import { organizationsData as enOrganizations } from './en/organizations';
+import { organizationsData as hiOrganizations } from './hi/organizations';
+import { organizationsData as mrOrganizations } from './mr/organizations';
 
 import { faqsData as enFaqs } from './en/faqs';
 import { faqsData as hiFaqs } from './hi/faqs';
@@ -57,6 +62,12 @@ export function getHelpResourcesData(lang: Language): HelpResource[] {
   if (lang === 'hi') return hiResources;
   if (lang === 'mr') return mrResources;
   return enResources;
+}
+
+export function getOrganizationsData(lang: Language): OrganizationResource[] {
+  if (lang === 'hi') return hiOrganizations;
+  if (lang === 'mr') return mrOrganizations;
+  return enOrganizations;
 }
 
 export function getEmergencyContacts(lang: Language): EmergencyContact[] {

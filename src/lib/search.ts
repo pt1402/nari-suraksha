@@ -8,6 +8,7 @@ import {
   getWorkflowsData,
   getSafeNextStepsFlows,
   getQuizzesData,
+  getOrganizationsData,
 } from '@/content';
 import { Language } from '@/types/content';
 
@@ -312,6 +313,69 @@ export function buildSearchIndex(): SearchIndexItem[] {
         url: '/quiz',
         tags: ['Quiz', 'Awareness Check', 'Self Assessment'],
         synonyms: ['quiz', 'test', 'knowledge check'],
+      });
+    });
+
+    // 7. Free Legal Aid Guide
+    const legalAidMeta = {
+      en: {
+        title: 'Free Legal Aid for Women (Section 12(c))',
+        description: 'Women may be eligible to seek free legal services under Section 12(c) of the Legal Services Authorities Act, 1987. Review official NALSA guidance.',
+        content: 'Article 39A Section 12(c) Legal Services Authorities Act 1987 NALSA 15100 DLSA TLSC State Legal Services Authority panel advocate free legal counsel legal advice court assistance legal aid clinics',
+        tags: ['Free Legal Aid', 'Section 12(c)', 'NALSA', '15100', 'DLSA', 'TLSC', 'Article 39A'],
+        synonyms: ['free legal aid', 'section 12(c)', 'nalsa', '15100', 'dlsa', 'tlsc', 'free lawyer', 'article 39a', 'legal aid helpline'],
+      },
+      hi: {
+        title: 'महिलाओं के लिए मुफ्त कानूनी सहायता (धारा 12(c))',
+        description: 'विधिक सेवा प्राधिकरण अधिनियम, 1987 की धारा 12(c) के तहत महिलाएं मुफ्त कानूनी सेवाएं प्राप्त करने के लिए पात्र हैं।',
+        content: 'अनुच्छेद 39A धारा 12(c) विधिक सेवा प्राधिकरण अधिनियम 1987 नालसा NALSA 15100 डीएलएसए DLSA टीएलएससी TLSC मुफ्त कानूनी सहायता वकील परामर्श',
+        tags: ['Free Legal Aid', 'Section 12(c)', 'NALSA', '15100', 'DLSA', 'TLSC', 'कानूनी सहायता', 'नालसा'],
+        synonyms: ['मुफ्त कानूनी सहायता', 'धारा 12(c)', 'नालसा', '15100', 'डीएलएसए', 'टीएलएससी', 'free legal aid', 'nalsa', '15100'],
+      },
+      mr: {
+        title: 'महिलांसाठी मोफत कायदेशीर मदत (कलम 12(c))',
+        description: 'विधी सेवा प्राधिकरण कायदा, 1987 च्या कलम 12(c) अंतर्गत महिला मोफत कायदेशीर सेवा मिळवण्यासाठी पात्र आहेत.',
+        content: 'अनुच्छेद 39A कलम 12(c) विधी सेवा प्राधिकरण कायदा 1987 नालसा NALSA 15100 डीएलएसए DLSA टीएलएससी TLSC मोफत कायदेशीर मदत वकील सल्ला',
+        tags: ['Free Legal Aid', 'Section 12(c)', 'NALSA', '15100', 'DLSA', 'TLSC', 'कायदेशीर मदत', 'नालसा'],
+        synonyms: ['मोफत कायदेशीर मदत', 'कलम 12(c)', 'नालसा', '15100', 'डीएलएसए', 'टीएलएससी', 'free legal aid', 'nalsa', '15100'],
+      },
+    };
+    const laInfo = legalAidMeta[lang];
+    items.push({
+      id: `${lang}-legal-aid-guide`,
+      title: laInfo.title,
+      type: 'Guide',
+      description: laInfo.description,
+      content: laInfo.content,
+      url: '/rights/free-legal-aid',
+      tags: laInfo.tags,
+      synonyms: laInfo.synonyms,
+      category: 'rights',
+      verificationStatus: 'verified',
+    });
+
+    // 8. Organizations Directory
+    const langOrgs = getOrganizationsData(lang);
+    langOrgs.forEach((org) => {
+      items.push({
+        id: `${lang}-org-${org.id}`,
+        title: org.name,
+        type: 'Help',
+        description: `${org.focusArea} — ${org.description}`,
+        content: `${org.name} ${org.focusArea} ${org.description} ${org.location} ${org.address || ''} ${org.websiteUrl}`,
+        url: '/get-help/organizations',
+        tags: [org.focusArea, 'Organization', 'Support Services', org.location],
+        synonyms: [
+          org.name.toLowerCase(),
+          org.focusArea.toLowerCase(),
+          org.location.toLowerCase(),
+          'organization',
+          'support service',
+          'ngo',
+        ],
+        category: org.focusArea,
+        verificationStatus: 'needs-verification',
+        verificationBadge: 'Organization Reference',
       });
     });
   });

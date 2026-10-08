@@ -28,7 +28,7 @@ export const faqsData: FAQItem[] = [
     category: 'rights',
     question: 'Who is eligible for free legal aid in India?',
     answer:
-      'Under Section 12(c) of the Legal Services Authorities Act, 1987, all women in India, irrespective of financial status, are eligible for free legal counseling and advocate representation through District Legal Services Authorities (DLSA) and NALSA clinics.',
+      'Under Section 12(c) of the Legal Services Authorities Act, 1987, a woman is identified as a category eligible to seek legal services. NALSA states that a woman is entitled to free legal aid irrespective of income or financial status. Applications, services, and current procedures should be confirmed with NALSA or the jurisdictional District Legal Services Authority (DLSA).',
     tags: ['Legal Aid', 'NALSA', 'DLSA', 'Court Representation'],
     relatedTopicSlugs: ['domestic-violence', 'workplace-sexual-harassment'],
     lastReviewedDate: '2026-03-01',

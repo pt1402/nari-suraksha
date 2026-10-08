@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Shield, ArrowRight, CheckCircle2, Scale, Tag } from 'lucide-react';
+import { BookOpen, Shield, ArrowRight, CheckCircle2, Scale, Tag, PhoneCall, ExternalLink } from 'lucide-react';
 import { PageHero } from '@/components/common/PageHero';
 import { DisclaimerBox } from '@/components/common/DisclaimerBox';
 import { SearchBar } from '@/components/search/SearchBar';
@@ -40,6 +40,74 @@ export const RightsPage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <DisclaimerBox />
+
+        {/* Free Legal Aid Banner */}
+        <section
+          aria-label="Free Legal Aid Information"
+          className="relative overflow-hidden bg-[#111936] text-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl border border-slate-700/60"
+        >
+          {/* Decorative scales watermark */}
+          <div className="absolute -right-8 -bottom-10 pointer-events-none opacity-5 text-white" aria-hidden="true">
+            <Scale className="w-64 h-64 sm:w-80 sm:h-80" />
+          </div>
+
+          <div className="relative z-10 max-w-3xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              <Scale className="w-3.5 h-3.5 text-amber-400" aria-hidden="true" />
+              <span>
+                {t('legalAid.badge', {
+                  defaultValue: 'Constitutional and statutory legal-aid support',
+                })}
+              </span>
+            </div>
+
+            <div>
+              <span className="block text-xs font-black tracking-widest text-slate-400 uppercase mb-1">
+                {t('legalAid.eyebrow', { defaultValue: 'FREE LEGAL AID' })}
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+                {t('legalAid.title', { defaultValue: 'Free Legal Aid for Women' })}
+              </h2>
+            </div>
+
+            <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
+              {t('legalAid.subtitle', {
+                defaultValue:
+                  'Women may be eligible to seek free legal services under Section 12(c) of the Legal Services Authorities Act, 1987. Review official NALSA guidance for the current application process.',
+              })}
+            </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-3.5">
+              <Link
+                to="/rights/free-legal-aid"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary-700 hover:bg-primary-800 text-white font-bold text-sm shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-primary-400"
+              >
+                <span>{t('legalAid.read_detailed_guide', { defaultValue: 'Read Detailed Guide' })}</span>
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
+
+              <a
+                href="tel:15100"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-600/80 font-bold text-sm shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-amber-400"
+                aria-label="Call NALSA helpline 15100"
+              >
+                <PhoneCall className="w-4 h-4 text-amber-400" aria-hidden="true" />
+                <span>{t('legalAid.call_15100', { defaultValue: 'Call 15100' })}</span>
+              </a>
+
+              <a
+                href="https://nalsa.gov.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-300 hover:text-white underline underline-offset-4 transition-colors"
+                aria-label="Visit official NALSA website (opens in new tab)"
+              >
+                <span>{t('legalAid.visit_nalsa', { defaultValue: 'Visit NALSA Portal' })}</span>
+                <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </section>
 
         {/* Search & Category Filter Controls */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { PhoneCall, ShieldAlert, AlertTriangle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { PhoneCall, ShieldAlert, AlertTriangle, Building2, ArrowRight } from 'lucide-react';
 import { PageHero } from '@/components/common/PageHero';
 import { DisclaimerBox } from '@/components/common/DisclaimerBox';
 import { ResourceCard } from '@/components/help/ResourceCard';
@@ -83,6 +84,32 @@ export const HelpPage: React.FC = () => {
               })}
             </p>
           </div>
+        </div>
+
+        {/* Organizations Directory Callout */}
+        <div className="bg-slate-900 text-white p-6 sm:p-7 rounded-2xl border border-slate-800 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-teal-300 bg-teal-950/80 px-2.5 py-0.5 rounded-full border border-teal-500/30">
+              <Building2 className="w-3.5 h-3.5 text-teal-400" />
+              <span>{t('organizations.nav_badge', { defaultValue: 'Specialized Support Services' })}</span>
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
+              {t('organizations.nav_title', { defaultValue: 'Looking for Non-Governmental Organizations & Specialized Support?' })}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+              {t('organizations.nav_desc', {
+                defaultValue:
+                  'Explore our directory of independent organizations working in maternal & child health, mental health, economic empowerment, menstrual health, and women’s rights.',
+              })}
+            </p>
+          </div>
+          <Link
+            to="/get-help/organizations"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-teal-600 hover:bg-teal-500 text-white text-sm font-bold rounded-xl shadow transition shrink-0 self-start md:self-center"
+          >
+            <span>{t('organizations.nav_button', { defaultValue: 'View Organizations Directory' })}</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
         {/* Search & Category Filter */}
