@@ -18,3 +18,43 @@ export interface WorkflowGuide {
   disclaimer: string;
   steps: StepItem[];
 }
+
+export type ConcernId =
+  | 'unsafe-now'
+  | 'stalking'
+  | 'fake-profile'
+  | 'online-threats'
+  | 'workplace-conduct'
+  | 'abuse-at-home'
+  | 'financial-scam'
+  | 'helping-someone'
+  | 'unsure';
+
+export type DangerCheckChoice = 'yes-danger' | 'no-danger' | 'unsure';
+
+export interface GuidedFlowStep {
+  id: string;
+  order: number;
+  title: string;
+  description: string;
+  options: string[];
+  cautionNotes?: string[];
+}
+
+export interface LearnMoreLink {
+  title: string;
+  url: string;
+  note?: string;
+}
+
+export interface SafeNextStepsFlowData {
+  concernId: ConcernId;
+  label: string;
+  title: string;
+  shortExplanation: string;
+  steps: GuidedFlowStep[];
+  evidenceSafetyNotes?: string[];
+  learnMoreLinks: LearnMoreLink[];
+  sourceVerificationNote?: string;
+  disclaimer: string;
+}

@@ -4,7 +4,7 @@ import { topicsData } from '@/content/en/topics';
 import { lawsData } from '@/content/en/laws';
 import { helpResourcesData } from '@/content/en/resources';
 import { faqsData } from '@/content/en/faqs';
-import { workflowsData } from '@/content/en/workflows';
+import { workflowsData, SAFE_NEXT_STEPS_FLOWS } from '@/content/en/workflows';
 import { quizzesData } from '@/content/en/quizzes';
 
 // Conservative synonyms for MVP topics and statutes
@@ -263,6 +263,24 @@ export function buildSearchIndex(): SearchIndexItem[] {
       tags: [guide.category, 'Action Steps', 'Safe Protocol'],
       synonyms: ['next steps', 'what to do', 'action flow', guide.category],
       category: guide.category,
+    });
+  });
+
+  // Guided Next-Steps Flows
+  Object.values(SAFE_NEXT_STEPS_FLOWS).forEach((flow) => {
+    const stepsText = (flow.steps || [])
+      .map((s) => `${s.title} ${s.description} ${(s.options || []).join(' ')}`)
+      .join(' ');
+
+    items.push({
+      id: `guided-flow-${flow.concernId}`,
+      title: flow.title,
+      type: 'Steps',
+      description: flow.shortExplanation,
+      content: `${flow.title} ${flow.shortExplanation} ${stepsText}`,
+      url: '/what-to-do',
+      tags: ['Explore Safe Next Steps', 'Guided Flow', flow.label],
+      synonyms: ['explore safe next steps', 'safe next steps', 'what to do', flow.label.toLowerCase()],
     });
   });
 
