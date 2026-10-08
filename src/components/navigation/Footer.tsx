@@ -3,8 +3,20 @@ import { Link } from 'react-router-dom';
 import { Shield, AlertCircle, Heart, PhoneCall } from 'lucide-react';
 import { APP_NAME, FOOTER_LINKS, EMERGENCY_NUMBER } from '@/lib/constants';
 import { DisclaimerBox } from '../common/DisclaimerBox';
+import { useLanguage } from '@/hooks/useLanguage';
+
+const FOOTER_KEY_MAP: Record<string, string> = {
+  '/about': 'nav.about',
+  '/survey': 'nav.survey',
+  '/privacy': 'nav.privacy',
+  '/disclaimer': 'nav.disclaimer',
+  '/sources': 'nav.sources',
+  '/accessibility': 'nav.accessibility',
+};
 
 export const Footer: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-primary-950 text-primary-200 border-t border-primary-800/80 pt-12 pb-8 mt-16" aria-label="Portal footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,18 +35,25 @@ export const Footer: React.FC = () => {
               <span className="text-lg font-bold text-white tracking-wide">{APP_NAME}</span>
             </div>
             <p className="text-xs sm:text-sm text-primary-300 leading-relaxed">
-              India-focused public awareness portal dedicated to women’s legal rights, cyber safety, workplace protections, and verified official help contacts.
+              {t('footer.about_desc', {
+                defaultValue:
+                  'India-focused public awareness portal dedicated to women’s legal rights, cyber safety, workplace protections, and verified official help contacts.',
+              })}
             </p>
             <div className="text-xs text-teal-300 bg-primary-900/70 p-2.5 rounded-xl border border-primary-800">
-              <span className="font-semibold block mb-0.5">Privacy First:</span>
-              No registration, no tracking of personal incident data, and no login required.
+              <span className="font-semibold block mb-0.5">
+                {t('footer.privacy_title', { defaultValue: 'Privacy First:' })}
+              </span>
+              {t('footer.privacy_desc', {
+                defaultValue: 'No registration, no tracking of personal incident data, and no login required.',
+              })}
             </div>
           </div>
 
           {/* Col 2: Quick Links */}
           <div>
             <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4 border-b border-primary-800 pb-1">
-              Important Pages
+              {t('footer.important_pages', { defaultValue: 'Important Pages' })}
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">
               {FOOTER_LINKS.map((link) => (
@@ -43,7 +62,7 @@ export const Footer: React.FC = () => {
                     to={link.path}
                     className="hover:text-white hover:underline transition-colors focus:outline-none focus:ring-1 focus:ring-amber-400 rounded"
                   >
-                    {link.label}
+                    {t(FOOTER_KEY_MAP[link.path] || link.label, { defaultValue: link.label })}
                   </Link>
                 </li>
               ))}
@@ -53,32 +72,32 @@ export const Footer: React.FC = () => {
           {/* Col 3: Awareness Topics */}
           <div>
             <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4 border-b border-primary-800 pb-1">
-              Safety Domains
+              {t('footer.safety_domains', { defaultValue: 'Safety Domains' })}
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">
               <li>
                 <Link to="/rights" className="hover:text-white transition-colors">
-                  10 Core Awareness Topics
+                  {t('nav.rights', { defaultValue: 'Know Your Rights' })}
                 </Link>
               </li>
               <li>
                 <Link to="/what-to-do" className="hover:text-white transition-colors">
-                  Step-by-Step Action Guides
+                  {t('nav.what_to_do', { defaultValue: 'What Should I Do?' })}
                 </Link>
               </li>
               <li>
                 <Link to="/cyber-safety" className="hover:text-white transition-colors">
-                  Cyber Safety & Online Abuse
+                  {t('nav.cyber_safety', { defaultValue: 'Cyber Safety' })}
                 </Link>
               </li>
               <li>
                 <Link to="/workplace" className="hover:text-white transition-colors">
-                  Workplace Safety & POSH Act
+                  {t('nav.workplace', { defaultValue: 'Workplace Safety' })}
                 </Link>
               </li>
               <li>
                 <Link to="/laws" className="hover:text-white transition-colors">
-                  Indian Laws & Protections
+                  {t('nav.laws', { defaultValue: 'Know the Law' })}
                 </Link>
               </li>
             </ul>
@@ -88,11 +107,11 @@ export const Footer: React.FC = () => {
           <div className="bg-primary-900/50 p-4 rounded-2xl border border-primary-800 space-y-3">
             <h3 className="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
               <AlertCircle className="w-4 h-4 text-amber-400" aria-hidden="true" />
-              <span>National Helplines</span>
+              <span>{t('help.page_badge', { defaultValue: 'National Helplines' })}</span>
             </h3>
             <ul className="space-y-3 text-xs">
               <li className="flex items-center justify-between border-b border-primary-800/60 pb-2">
-                <span>Emergency (Police/Fire/Med):</span>
+                <span>{t('footer.national_emergency', { defaultValue: 'Emergency (Police/Fire/Med): 112' })}</span>
                 <a
                   href={`tel:${EMERGENCY_NUMBER}`}
                   className="font-bold text-white bg-emergency-800 px-2.5 py-1 rounded-md hover:bg-emergency-700 inline-flex items-center gap-1"
@@ -107,7 +126,9 @@ export const Footer: React.FC = () => {
                   <span>Women Helpline Reference:</span>
                   <span className="font-semibold text-teal-300">1091</span>
                 </div>
-                <span className="text-[10px] text-amber-300">Verify from official source</span>
+                <span className="text-[10px] text-amber-300">
+                  {t('common.verify_warning', { defaultValue: 'Verify from official source before public launch' })}
+                </span>
               </li>
               <li className="flex flex-col gap-0.5">
                 <div className="flex items-center justify-between">
@@ -125,7 +146,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-primary-800 text-xs text-primary-400 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} NARI-SURAKSHA Public Information Project. Community Awareness & Rights Education.</p>
+          <p>© {new Date().getFullYear()} {APP_NAME}. {t('footer.all_rights_reserved', { defaultValue: 'All rights reserved. Public awareness initiative.' })}</p>
           <div className="flex items-center gap-1 text-primary-400">
             <span>Built for Women’s Safety & Empowerment</span>
             <Heart className="w-3.5 h-3.5 text-emergency-500 fill-emergency-500" aria-hidden="true" />

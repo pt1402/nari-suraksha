@@ -32,6 +32,13 @@ export type ConcernId =
 
 export type DangerCheckChoice = 'yes-danger' | 'no-danger' | 'unsure';
 
+export interface ConcernOption {
+  id: ConcernId;
+  label: string;
+  description: string;
+  isEmergencyDirect?: boolean;
+}
+
 export interface GuidedFlowStep {
   id: string;
   order: number;

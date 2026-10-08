@@ -1,0 +1,122 @@
+{
+  "app": {
+    "title": "NARI-SURAKSHA",
+    "tagline": "Women's Safety, Rights & Awareness Portal",
+    "portal_subtitle": "Women’s Safety, Rights and Awareness Portal • India"
+  },
+  "nav": {
+    "home": "Home",
+    "rights": "Know Your Rights",
+    "what_to_do": "What Should I Do?",
+    "cyber_safety": "Cyber Safety",
+    "workplace": "Workplace Safety",
+    "laws": "Know the Law",
+    "get_help": "Get Help",
+    "faq": "FAQ",
+    "quiz": "Quiz",
+    "about": "About Portal",
+    "survey": "Survey / Feedback",
+    "privacy": "Privacy Policy",
+    "disclaimer": "Disclaimer",
+    "sources": "Verified Sources",
+    "accessibility": "Accessibility",
+    "search": "Search",
+    "open_menu": "Open main menu",
+    "close_menu": "Close navigation menu"
+  },
+  "emergency": {
+    "banner_text": "In immediate danger? Call emergency services now.",
+    "call_112_now": "Call 112 Now",
+    "find_helplines": "Helplines",
+    "quick_exit": "Quick Exit",
+    "quick_exit_title": "Quickly leave this website and open Google",
+    "immediate_danger_title": "Immediate Danger or Emergency?",
+    "immediate_danger_desc": "Do not attempt complex administrative steps if your safety is compromised. Prioritize your physical safety and contact emergency dispatch immediately.",
+    "dial_112_immediate": "Dial 112 Immediately",
+    "toll_free_national": "24/7 National Emergency Toll-Free"
+  },
+  "home": {
+    "hero_badge": "India's Public Awareness Portal",
+    "hero_title": "Empowering Women with Knowledge, Rights & Safe Guidance",
+    "hero_subtitle": "Simple, calm, and legally accurate awareness information on rights, digital privacy, workplace safety, and verified emergency helplines.",
+    "explore_rights_btn": "Explore Your Rights",
+    "safe_steps_btn": "What Should I Do?",
+    "core_domains_title": "Essential Safety Domains",
+    "core_domains_subtitle": "Explore verified information across key areas of safety, law, and digital well-being.",
+    "verified_helplines_title": "24/7 Verified Emergency Helplines",
+    "verified_helplines_subtitle": "Direct, toll-free national emergency lines across India."
+  },
+  "rights": {
+    "page_badge": "10 Core Awareness Domains",
+    "page_title": "Know Your Rights & Safety Topics",
+    "page_subtitle": "Educational awareness on domestic safety, workplace rights, cyber security, stalking protections, and financial fraud prevention.",
+    "search_placeholder": "Search topics by keyword (e.g. Domestic, Cyber, POSH, Stalking)...",
+    "all_categories": "All Categories",
+    "read_guide": "Read Guide"
+  },
+  "whatToDo": {
+    "page_badge": "Guided Decision Support",
+    "page_title": "Explore Safe Next Steps",
+    "page_subtitle": "Choose a general topic to see information and options. Do not enter personal details. This guide cannot assess your situation.",
+    "structured_guides_title": "Structured Procedural Guides",
+    "structured_guides_subtitle": "Read comprehensive stage-by-stage reference documentation for formal reporting and documentation."
+  },
+  "help": {
+    "page_badge": "Official Helplines & Support",
+    "page_title": "Get Help: Verified Directory & Support Services",
+    "page_subtitle": "Access national emergency response (112), district One Stop Centres (Sakhi), cyber safety guidance, and statutory legal aid clinics.",
+    "priority_title": "Life Threatening or Immediate Crisis",
+    "priority_erss": "Emergency Response Support (112)",
+    "priority_desc": "Toll-free 24/7 nationwide emergency service for immediate police, fire, or medical dispatch across all states and union territories.",
+    "search_placeholder": "Search helplines by name, category, or service..."
+  },
+  "faq": {
+    "page_badge": "Clarifications & Answers",
+    "page_title": "Frequently Asked Questions (FAQ)",
+    "page_subtitle": "Common questions regarding police station procedures, Zero FIR, free legal aid, cyber crime lodging, and the scope of this awareness portal.",
+    "search_placeholder": "Search questions (e.g. Zero FIR, Night Arrest)...",
+    "all_questions": "All Questions",
+    "no_results": "No questions match your search."
+  },
+  "quiz": {
+    "page_badge": "Self-Assessment & Learning",
+    "page_title": "Safety & Legal Awareness Quizzes",
+    "page_subtitle": "Test your knowledge of women's constitutional protections, workplace rules, cyber security measures, and emergency protocols.",
+    "note": "These interactive questions are designed to reinforce awareness of real statutory rights and procedural guidelines in India. No scores or personal answers are stored on any server."
+  },
+  "laws": {
+    "page_badge": "Statutory Protections in India",
+    "page_title": "Key Laws & Legal Provisions",
+    "page_subtitle": "Plain-language overviews of significant acts protecting women across domestic, workplace, and digital environments."
+  },
+  "footer": {
+    "about_title": "About NARI-SURAKSHA",
+    "about_desc": "India-focused public awareness portal dedicated to women’s legal rights, cyber safety, workplace protections, and verified official help contacts.",
+    "privacy_title": "Privacy First:",
+    "privacy_desc": "No registration, no tracking of personal incident data, and no login required.",
+    "important_pages": "Important Pages",
+    "safety_domains": "Safety Domains",
+    "national_emergency": "National Emergency: 112",
+    "national_emergency_desc": "24/7 National Emergency Toll-Free Dispatch",
+    "all_rights_reserved": "All rights reserved. Public awareness initiative."
+  },
+  "common": {
+    "disclaimer_title": "Important Safety & Legal Notice",
+    "global_disclaimer": "This portal provides general awareness information only. It is not legal, medical, counselling, police, or emergency advice.",
+    "search_placeholder": "Search safety topics, rights, laws, or help…",
+    "clear_search": "Clear search",
+    "verified": "Verified Official Source",
+    "verify_warning": "Verify from official source before public launch",
+    "back": "Back",
+    "return_to_choices": "Return to topic choices",
+    "language": "Language",
+    "change_topic": "Change Topic",
+    "safety_first": "Safety First",
+    "step_of": "Step {{current}} of {{total}}",
+    "options_not_commands": "Possible Steps You May Consider (Options, not commands)",
+    "evidence_safe_title": "Evidence and Records, If Safe",
+    "learn_more_title": "Where to Learn More (Verified Internal Guides)",
+    "not_found_title": "Page Not Found",
+    "return_home": "Return to Home Page"
+  }
+}

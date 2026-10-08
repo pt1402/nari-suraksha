@@ -25,8 +25,8 @@ import {
   DangerCheckChoice,
   SafeNextStepsFlowData,
 } from '@/types/workflow';
-import { CONCERNS_LIST, SAFE_NEXT_STEPS_FLOWS } from '@/content/en/workflows';
 import { EMERGENCY_NUMBER } from '@/lib/constants';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const CONCERN_ICONS: Record<ConcernId, React.FC<{ className?: string }>> = {
   'unsafe-now': AlertTriangle,
@@ -41,6 +41,8 @@ const CONCERN_ICONS: Record<ConcernId, React.FC<{ className?: string }>> = {
 };
 
 export const SafeNextStepsFlow: React.FC = () => {
+  const { concernsList, safeNextStepsFlows, t } = useLanguage();
+
   // State is held strictly in component memory and never persisted
   const [selectedConcernId, setSelectedConcernId] = useState<ConcernId | null>(null);
   const [dangerChoice, setDangerChoice] = useState<DangerCheckChoice | null>(null);
@@ -77,7 +79,7 @@ export const SafeNextStepsFlow: React.FC = () => {
 
   // Determine current active flow data
   const currentFlow: SafeNextStepsFlowData | null = selectedConcernId
-    ? SAFE_NEXT_STEPS_FLOWS[selectedConcernId]
+    ? safeNextStepsFlows[selectedConcernId]
     : null;
 
   /* =========================================================================
@@ -110,7 +112,7 @@ export const SafeNextStepsFlow: React.FC = () => {
 
         {/* 9 Concern Choice Buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-          {CONCERNS_LIST.map((concern) => {
+          {concernsList.map((concern) => {
             const IconComponent = CONCERN_ICONS[concern.id] || HelpCircle;
             const isEmergencyOption = concern.isEmergencyDirect;
 
@@ -185,7 +187,7 @@ export const SafeNextStepsFlow: React.FC = () => {
             className="inline-flex items-center gap-1.5 text-teal-700 hover:text-teal-900 font-medium focus:outline-none focus:underline"
           >
             <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Change Topic</span>
+            <span>{t('common.change_topic', { defaultValue: 'Change Topic' })}</span>
           </button>
           <span className="font-semibold px-2.5 py-0.5 bg-slate-100 rounded-full text-[11px] text-slate-700">
             Step 1 of 2: Immediate Safety Check
@@ -196,7 +198,7 @@ export const SafeNextStepsFlow: React.FC = () => {
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emergency-800 bg-emergency-50 px-2.5 py-1 rounded-md mb-3 border border-emergency-200">
             <AlertTriangle className="w-3.5 h-3.5 text-emergency-700 shrink-0" aria-hidden="true" />
-            <span>Safety First</span>
+            <span>{t('common.safety_first', { defaultValue: 'Safety First' })}</span>
           </div>
           <h2
             id="danger-check-heading"
@@ -278,7 +280,7 @@ export const SafeNextStepsFlow: React.FC = () => {
             className="inline-flex items-center gap-1.5 text-emergency-900 hover:underline font-semibold focus:outline-none focus:ring-1 focus:ring-emergency-500 rounded px-1"
           >
             <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Return to topic choices</span>
+            <span>{t('common.return_to_choices', { defaultValue: 'Return to topic choices' })}</span>
           </button>
           {selectedConcernId !== 'unsafe-now' && (
             <button

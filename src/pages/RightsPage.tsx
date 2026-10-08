@@ -5,10 +5,11 @@ import { PageHero } from '@/components/common/PageHero';
 import { DisclaimerBox } from '@/components/common/DisclaimerBox';
 import { SearchBar } from '@/components/search/SearchBar';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
-import { topicsData } from '@/content/en/topics';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export const RightsPage: React.FC = () => {
   useDocumentTitle('Know Your Rights & Awareness Topics');
+  const { topicsData, t } = useLanguage();
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -29,9 +30,12 @@ export const RightsPage: React.FC = () => {
     <div className="space-y-12 pb-16">
       <PageHero
         icon={BookOpen}
-        badge="10 Core Awareness Domains"
-        title="Know Your Rights & Safety Topics"
-        subtitle="Educational awareness on domestic safety, workplace rights, cyber security, stalking protections, and financial fraud prevention."
+        badge={t('rights.page_badge', { defaultValue: '10 Core Awareness Domains' })}
+        title={t('rights.page_title', { defaultValue: 'Know Your Rights & Safety Topics' })}
+        subtitle={t('rights.page_subtitle', {
+          defaultValue:
+            'Educational awareness on domestic safety, workplace rights, cyber security, stalking protections, and financial fraud prevention.',
+        })}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
@@ -43,7 +47,9 @@ export const RightsPage: React.FC = () => {
             <SearchBar
               value={search}
               onChange={setSearch}
-              placeholder="Search topics by keyword (e.g. Domestic, Cyber, POSH, Stalking)..."
+              placeholder={t('rights.search_placeholder', {
+                defaultValue: 'Search topics by keyword (e.g. Domestic, Cyber, POSH, Stalking)...',
+              })}
             />
           </div>
 
@@ -58,7 +64,7 @@ export const RightsPage: React.FC = () => {
                     : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
                 }`}
               >
-                {cat === 'all' ? 'All 10 Topics' : `${cat} Topics`}
+                {cat === 'all' ? t('rights.all_categories', { defaultValue: 'All 10 Topics' }) : `${cat} Topics`}
               </button>
             ))}
           </div>

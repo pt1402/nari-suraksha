@@ -16,13 +16,12 @@ import {
 import { PageHero } from '@/components/common/PageHero';
 import { DisclaimerBox } from '@/components/common/DisclaimerBox';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
-import { topicsData } from '@/content/en/topics';
-import { lawsData } from '@/content/en/laws';
-import { helpResourcesData } from '@/content/en/resources';
 import { officialSources } from '@/content/sources';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export const TopicPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { topicsData, lawsData, helpResourcesData } = useLanguage();
   const topic = topicsData.find((t) => t.slug === slug);
 
   useDocumentTitle(topic ? topic.title : 'Topic Details');

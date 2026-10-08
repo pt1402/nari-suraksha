@@ -5,11 +5,12 @@ import { DisclaimerBox } from '@/components/common/DisclaimerBox';
 import { ResourceCard } from '@/components/help/ResourceCard';
 import { SearchBar } from '@/components/search/SearchBar';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
-import { helpResourcesData } from '@/content/en/resources';
 import { EMERGENCY_NUMBER } from '@/lib/constants';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export const HelpPage: React.FC = () => {
   useDocumentTitle('Get Help & Verified Directory');
+  const { helpResourcesData, t } = useLanguage();
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
 
@@ -27,9 +28,12 @@ export const HelpPage: React.FC = () => {
     <div className="space-y-12 pb-16">
       <PageHero
         icon={PhoneCall}
-        badge="Official Helplines & Support"
-        title="Get Help: Verified Directory & Support Services"
-        subtitle="Access national emergency response (112), district One Stop Centres (Sakhi), cyber safety guidance, and statutory legal aid clinics."
+        badge={t('help.page_badge', { defaultValue: 'Official Helplines & Support' })}
+        title={t('help.page_title', { defaultValue: 'Get Help: Verified Directory & Support Services' })}
+        subtitle={t('help.page_subtitle', {
+          defaultValue:
+            'Access national emergency response (112), district One Stop Centres (Sakhi), cyber safety guidance, and statutory legal aid clinics.',
+        })}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -41,21 +45,26 @@ export const HelpPage: React.FC = () => {
             <div className="space-y-2 text-center md:text-left">
               <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-amber-300 bg-emergency-950/60 px-3 py-1 rounded-full border border-amber-400/30">
                 <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
-                <span>Life Threatening or Immediate Crisis</span>
+                <span>{t('help.priority_title', { defaultValue: 'Life Threatening or Immediate Crisis' })}</span>
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold">Emergency Response Support (112)</h2>
+              <h2 className="text-2xl sm:text-3xl font-extrabold">
+                {t('help.priority_erss', { defaultValue: 'Emergency Response Support (112)' })}
+              </h2>
               <p className="text-slate-200 text-xs sm:text-sm max-w-xl">
-                Toll-free 24/7 nationwide emergency service for immediate police, fire, or medical dispatch across all states and union territories.
+                {t('help.priority_desc', {
+                  defaultValue:
+                    'Toll-free 24/7 nationwide emergency service for immediate police, fire, or medical dispatch across all states and union territories.',
+                })}
               </p>
             </div>
 
             <a
               href={`tel:${EMERGENCY_NUMBER}`}
               className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-emergency-900 hover:bg-emergency-50 text-base font-extrabold rounded-xl shadow-lg transition-transform transform active:scale-95 focus:outline-none focus:ring-4 focus:ring-amber-300 shrink-0"
-              aria-label="Direct emergency phone call to 112"
+              aria-label={`Direct emergency phone call to ${EMERGENCY_NUMBER}`}
             >
               <PhoneCall className="w-5 h-5 text-emergency-700" />
-              <span>Dial 112 Immediately</span>
+              <span>{t('emergency.dial_112_immediate', { defaultValue: 'Dial 112 Immediately' })}</span>
             </a>
           </div>
         </section>

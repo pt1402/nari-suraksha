@@ -20,7 +20,11 @@ export const EmergencyBanner: React.FC = () => {
             <div className="p-1 bg-emergency-700 rounded-full animate-pulse" aria-hidden="true">
               <AlertTriangle className="w-4 h-4 text-amber-300" />
             </div>
-            <span>{t('emergency_banner_text') || 'In immediate danger? Call emergency services now.'}</span>
+            <span>
+              {t('emergency.banner_text', {
+                defaultValue: 'In immediate danger? Call emergency services now.',
+              })}
+            </span>
           </div>
 
           {/* Action buttons */}
@@ -32,7 +36,7 @@ export const EmergencyBanner: React.FC = () => {
               aria-label={`Emergency phone call to ${EMERGENCY_NUMBER}`}
             >
               <PhoneCall className="w-4 h-4 text-emergency-700 animate-bounce" aria-hidden="true" />
-              <span>Call 112 Now</span>
+              <span>{t('emergency.call_112_now', { defaultValue: 'Call 112 Now' })}</span>
             </a>
 
             {/* Secondary Action: Helpline directory */}
@@ -41,17 +45,21 @@ export const EmergencyBanner: React.FC = () => {
               className="inline-flex items-center gap-1 px-3 py-1.5 bg-emergency-700/80 hover:bg-emergency-700 text-white font-medium rounded-md transition-colors border border-emergency-600 focus:outline-none focus:ring-2 focus:ring-white"
             >
               <ShieldAlert className="w-3.5 h-3.5 text-amber-200" aria-hidden="true" />
-              <span>{t('find_helplines') || 'Helplines'}</span>
+              <span>{t('emergency.find_helplines', { defaultValue: 'Helplines' })}</span>
             </Link>
 
             {/* Quick Exit Button */}
             <button
               onClick={() => quickExit()}
-              title="Quickly leave this website and open Google"
+              title={t('emergency.quick_exit_title', {
+                defaultValue: 'Quickly leave this website and open Google',
+              })}
               className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-900/60 hover:bg-slate-950 text-slate-200 hover:text-white text-xs font-semibold rounded-md transition-colors border border-slate-700/60 focus:outline-none focus:ring-2 focus:ring-amber-300"
-              aria-label="Quick Exit to Google"
+              aria-label={t('emergency.quick_exit_title', {
+                defaultValue: 'Quick Exit to Google',
+              })}
             >
-              <span>{t('quick_exit') || 'Quick Exit'}</span>
+              <span>{t('emergency.quick_exit', { defaultValue: 'Quick Exit' })}</span>
               <ExternalLink className="w-3 h-3 text-slate-300" aria-hidden="true" />
             </button>
           </div>

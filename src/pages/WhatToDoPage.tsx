@@ -5,19 +5,23 @@ import { DisclaimerBox } from '@/components/common/DisclaimerBox';
 import { SafeNextStepsFlow } from '@/components/guides/SafeNextStepsFlow';
 import { WorkflowSteps } from '@/components/guides/WorkflowSteps';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
-import { workflowsData } from '@/content/en/workflows';
 import { EMERGENCY_NUMBER } from '@/lib/constants';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export const WhatToDoPage: React.FC = () => {
   useDocumentTitle('Explore Safe Next Steps');
+  const { workflowsData, t } = useLanguage();
 
   return (
     <div className="space-y-10 pb-16">
       <PageHero
         icon={Compass}
-        badge="Guided Decision Support"
-        title="Explore Safe Next Steps"
-        subtitle="Choose a general topic to see information and options. Do not enter personal details. This guide cannot assess your situation."
+        badge={t('whatToDo.page_badge', { defaultValue: 'Guided Decision Support' })}
+        title={t('whatToDo.page_title', { defaultValue: 'Explore Safe Next Steps' })}
+        subtitle={t('whatToDo.page_subtitle', {
+          defaultValue:
+            'Choose a general topic to see information and options. Do not enter personal details. This guide cannot assess your situation.',
+        })}
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
@@ -52,10 +56,13 @@ export const WhatToDoPage: React.FC = () => {
         <div className="pt-6 border-t border-slate-200/80 space-y-6">
           <div className="space-y-1">
             <h2 className="text-lg sm:text-xl font-bold text-slate-900">
-              Structured Procedural Guides
+              {t('whatToDo.structured_guides_title', { defaultValue: 'Structured Procedural Guides' })}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
-              Read comprehensive stage-by-stage reference documentation for formal reporting and documentation.
+              {t('whatToDo.structured_guides_subtitle', {
+                defaultValue:
+                  'Read comprehensive stage-by-stage reference documentation for formal reporting and documentation.',
+              })}
             </p>
           </div>
 

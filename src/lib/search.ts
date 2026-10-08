@@ -1,11 +1,15 @@
 import Fuse from 'fuse.js';
 import { SearchIndexItem, SearchResultItem } from '@/types/search';
-import { topicsData } from '@/content/en/topics';
-import { lawsData } from '@/content/en/laws';
-import { helpResourcesData } from '@/content/en/resources';
-import { faqsData } from '@/content/en/faqs';
-import { workflowsData, SAFE_NEXT_STEPS_FLOWS } from '@/content/en/workflows';
-import { quizzesData } from '@/content/en/quizzes';
+import {
+  getTopicsData,
+  getLawsData,
+  getHelpResourcesData,
+  getFaqsData,
+  getWorkflowsData,
+  getSafeNextStepsFlows,
+  getQuizzesData,
+} from '@/content';
+import { Language } from '@/types/content';
 
 // Conservative synonyms for MVP topics and statutes
 const TOPIC_SYNONYMS: Record<string, string[]> = {
@@ -159,144 +163,155 @@ const LAW_SYNONYMS: Record<string, string[]> = {
  */
 export function buildSearchIndex(): SearchIndexItem[] {
   const items: SearchIndexItem[] = [];
+  const languages: Language[] = ['en', 'hi', 'mr'];
 
-  // 1. Guides / Awareness Topics
-  topicsData.forEach((topic) => {
-    const syns = TOPIC_SYNONYMS[topic.slug] || [];
-    const contentText = [
-      topic.plainIntroduction,
-      (topic.whatItMayInclude || []).join(' '),
-      (topic.examples || []).join(' '),
-      (topic.saferNextSteps || []).join(' '),
-      (topic.evidenceAndRecordsSafety || []).join(' '),
-      (topic.whereToLookForHelp || []).join(' '),
-    ].join(' ');
+  languages.forEach((lang) => {
+    const langTopics = getTopicsData(lang);
+    const langLaws = getLawsData(lang);
+    const langResources = getHelpResourcesData(lang);
+    const langFaqs = getFaqsData(lang);
+    const langWorkflows = getWorkflowsData(lang);
+    const langFlows = getSafeNextStepsFlows(lang);
+    const langQuizzes = getQuizzesData(lang);
 
-    items.push({
-      id: `topic-${topic.id}`,
-      title: topic.title,
-      type: 'Guide',
-      description: topic.summary,
-      content: contentText,
-      url: `/rights/${topic.slug}`,
-      tags: topic.tags || [],
-      synonyms: syns,
-      category: topic.category,
-      verificationStatus: topic.verificationStatus,
+    // 1. Guides / Awareness Topics
+    langTopics.forEach((topic) => {
+      const syns = lang === 'en' ? (TOPIC_SYNONYMS[topic.slug] || []) : [];
+      const contentText = [
+        topic.plainIntroduction,
+        (topic.whatItMayInclude || []).join(' '),
+        (topic.examples || []).join(' '),
+        (topic.saferNextSteps || []).join(' '),
+        (topic.evidenceAndRecordsSafety || []).join(' '),
+        (topic.whereToLookForHelp || []).join(' '),
+      ].join(' ');
+
+      items.push({
+        id: `${lang}-topic-${topic.id}`,
+        title: topic.title,
+        type: 'Guide',
+        description: topic.summary,
+        content: contentText,
+        url: `/rights/${topic.slug}`,
+        tags: topic.tags || [],
+        synonyms: syns,
+        category: topic.category,
+        verificationStatus: topic.verificationStatus,
+      });
     });
-  });
 
-  // 2. Laws / Statutes
-  lawsData.forEach((law) => {
-    const syns = LAW_SYNONYMS[law.id] || [];
-    const provisionsText = (law.keyProvisions || [])
-      .map((p) => `${p.section} ${p.explanation}`)
-      .join(' ');
-    const contentText = `${law.actName} ${law.plainLanguageSummary} ${provisionsText} ${law.penaltyOrEnforcementNote || ''}`;
+    // 2. Laws / Statutes
+    langLaws.forEach((law) => {
+      const syns = lang === 'en' ? (LAW_SYNONYMS[law.id] || []) : [];
+      const provisionsText = (law.keyProvisions || [])
+        .map((p) => `${p.section} ${p.explanation}`)
+        .join(' ');
+      const contentText = `${law.actName} ${law.plainLanguageSummary} ${provisionsText} ${law.penaltyOrEnforcementNote || ''}`;
 
-    items.push({
-      id: `law-${law.id}`,
-      title: law.shortTitle,
-      type: 'Law',
-      description: law.overview,
-      content: contentText,
-      url: '/laws',
-      tags: [law.category, 'Statute', 'Law'],
-      synonyms: syns,
-      category: law.category,
-      verificationStatus: law.verificationStatus,
+      items.push({
+        id: `${lang}-law-${law.id}`,
+        title: law.shortTitle,
+        type: 'Law',
+        description: law.overview,
+        content: contentText,
+        url: '/laws',
+        tags: [law.category, 'Statute', 'Law'],
+        synonyms: syns,
+        category: law.category,
+        verificationStatus: law.verificationStatus,
+      });
     });
-  });
 
-  // 3. Help Resources
-  helpResourcesData.forEach((resource) => {
-    items.push({
-      id: `resource-${resource.id}`,
-      title: resource.name,
-      type: 'Help',
-      description: resource.description,
-      content: `${resource.category} ${resource.contactType} ${resource.safeDisplayNote || ''} ${resource.sourceOwner}`,
-      url: '/get-help',
-      tags: [resource.category, 'Helpline', 'Support'],
-      synonyms: [
-        resource.isEmergency112 ? 'emergency 112 police ambulance fire' : '',
-        resource.category.toLowerCase(),
-      ].filter(Boolean),
-      category: resource.category,
-      verificationStatus: resource.verificationStatus,
-      verificationBadge:
-        resource.verificationStatus === 'verified'
-          ? 'Verified Official Source'
-          : 'Verify from official source before public launch',
+    // 3. Help Resources
+    langResources.forEach((resource) => {
+      items.push({
+        id: `${lang}-resource-${resource.id}`,
+        title: resource.name,
+        type: 'Help',
+        description: resource.description,
+        content: `${resource.category} ${resource.contactType} ${resource.safeDisplayNote || ''} ${resource.sourceOwner}`,
+        url: '/get-help',
+        tags: [resource.category, 'Helpline', 'Support'],
+        synonyms: [
+          resource.isEmergency112 ? 'emergency 112 police ambulance fire 112' : '',
+          resource.category.toLowerCase(),
+        ].filter(Boolean),
+        category: resource.category,
+        verificationStatus: resource.verificationStatus,
+        verificationBadge:
+          resource.verificationStatus === 'verified'
+            ? 'Verified Official Source'
+            : 'Verify from official source before public launch',
+      });
     });
-  });
 
-  // 4. FAQs
-  faqsData.forEach((faq) => {
-    items.push({
-      id: `faq-${faq.id}`,
-      title: faq.question,
-      type: 'FAQ',
-      description: faq.answer,
-      content: `${faq.question} ${faq.answer} ${(faq.tags || []).join(' ')}`,
-      url: '/faq',
-      tags: faq.tags || [],
-      synonyms: ['faq', 'question', 'answers', faq.category],
-      category: faq.category,
-      verificationStatus: faq.verificationStatus,
+    // 4. FAQs
+    langFaqs.forEach((faq) => {
+      items.push({
+        id: `${lang}-faq-${faq.id}`,
+        title: faq.question,
+        type: 'FAQ',
+        description: faq.answer,
+        content: `${faq.question} ${faq.answer} ${(faq.tags || []).join(' ')}`,
+        url: '/faq',
+        tags: faq.tags || [],
+        synonyms: ['faq', 'question', 'answers', faq.category],
+        category: faq.category,
+        verificationStatus: faq.verificationStatus,
+      });
     });
-  });
 
-  // 5. Workflows / Action Steps
-  workflowsData.forEach((guide) => {
-    const stepsText = (guide.steps || [])
-      .map((s) => `${s.title} ${s.description} ${(s.recommendedActions || []).join(' ')}`)
-      .join(' ');
+    // 5. Workflows / Action Steps
+    langWorkflows.forEach((guide) => {
+      const stepsText = (guide.steps || [])
+        .map((s) => `${s.title} ${s.description} ${(s.recommendedActions || []).join(' ')}`)
+        .join(' ');
 
-    items.push({
-      id: `workflow-${guide.id}`,
-      title: guide.title,
-      type: 'Steps',
-      description: guide.summary,
-      content: `${guide.scenario} ${guide.disclaimer} ${stepsText}`,
-      url: '/what-to-do',
-      tags: [guide.category, 'Action Steps', 'Safe Protocol'],
-      synonyms: ['next steps', 'what to do', 'action flow', guide.category],
-      category: guide.category,
+      items.push({
+        id: `${lang}-workflow-${guide.id}`,
+        title: guide.title,
+        type: 'Steps',
+        description: guide.summary,
+        content: `${guide.scenario} ${guide.disclaimer} ${stepsText}`,
+        url: '/what-to-do',
+        tags: [guide.category, 'Action Steps', 'Safe Protocol'],
+        synonyms: ['next steps', 'what to do', 'action flow', guide.category],
+        category: guide.category,
+      });
     });
-  });
 
-  // Guided Next-Steps Flows
-  Object.values(SAFE_NEXT_STEPS_FLOWS).forEach((flow) => {
-    const stepsText = (flow.steps || [])
-      .map((s) => `${s.title} ${s.description} ${(s.options || []).join(' ')}`)
-      .join(' ');
+    // Guided Next-Steps Flows
+    Object.values(langFlows).forEach((flow) => {
+      const stepsText = (flow.steps || [])
+        .map((s) => `${s.title} ${s.description} ${(s.options || []).join(' ')}`)
+        .join(' ');
 
-    items.push({
-      id: `guided-flow-${flow.concernId}`,
-      title: flow.title,
-      type: 'Steps',
-      description: flow.shortExplanation,
-      content: `${flow.title} ${flow.shortExplanation} ${stepsText}`,
-      url: '/what-to-do',
-      tags: ['Explore Safe Next Steps', 'Guided Flow', flow.label],
-      synonyms: ['explore safe next steps', 'safe next steps', 'what to do', flow.label.toLowerCase()],
+      items.push({
+        id: `${lang}-guided-flow-${flow.concernId}`,
+        title: flow.title,
+        type: 'Steps',
+        description: flow.shortExplanation,
+        content: `${flow.title} ${flow.shortExplanation} ${stepsText}`,
+        url: '/what-to-do',
+        tags: ['Explore Safe Next Steps', 'Guided Flow', flow.label],
+        synonyms: ['explore safe next steps', 'safe next steps', 'what to do', flow.label.toLowerCase()],
+      });
     });
-  });
 
-  // 6. Quizzes (Indexed without answer spoilers)
-  quizzesData.forEach((quiz) => {
-    const questionsText = (quiz.questions || []).map((q) => q.question).join(' ');
+    // 6. Quizzes
+    langQuizzes.forEach((quiz) => {
+      const questionsText = (quiz.questions || []).map((q) => q.question).join(' ');
 
-    items.push({
-      id: `quiz-${quiz.id}`,
-      title: quiz.title,
-      type: 'Quiz',
-      description: quiz.description,
-      content: `${quiz.title} ${quiz.description} ${questionsText}`,
-      url: '/quiz',
-      tags: ['Quiz', 'Awareness Check', 'Self Assessment'],
-      synonyms: ['quiz', 'test', 'knowledge check'],
+      items.push({
+        id: `${lang}-quiz-${quiz.id}`,
+        title: quiz.title,
+        type: 'Quiz',
+        description: quiz.description,
+        content: `${quiz.title} ${quiz.description} ${questionsText}`,
+        url: '/quiz',
+        tags: ['Quiz', 'Awareness Check', 'Self Assessment'],
+        synonyms: ['quiz', 'test', 'knowledge check'],
+      });
     });
   });
 

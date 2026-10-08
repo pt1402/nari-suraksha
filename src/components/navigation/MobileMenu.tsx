@@ -4,16 +4,30 @@ import { X, Shield, PhoneCall } from 'lucide-react';
 import { NAV_LINKS, EMERGENCY_NUMBER } from '@/lib/constants';
 import { LanguageSelector } from './LanguageSelector';
 import { GlobalSearch } from '../search/GlobalSearch';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const NAV_KEY_MAP: Record<string, string> = {
+  '/': 'nav.home',
+  '/rights': 'nav.rights',
+  '/what-to-do': 'nav.what_to_do',
+  '/cyber-safety': 'nav.cyber_safety',
+  '/workplace': 'nav.workplace',
+  '/laws': 'nav.laws',
+  '/get-help': 'nav.get_help',
+  '/faq': 'nav.faq',
+  '/quiz': 'nav.quiz',
+};
+
 export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const { t } = useLanguage();
 
   // Close menu when route changes
   useEffect(() => {
@@ -84,7 +98,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             ref={closeButtonRef}
             onClick={onClose}
             className="p-2 rounded-lg text-primary-200 hover:text-white hover:bg-primary-900 focus:outline-none focus:ring-2 focus:ring-amber-400"
-            aria-label="Close navigation menu"
+            aria-label={t('nav.close_menu', { defaultValue: 'Close navigation menu' })}
           >
             <X className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
           </button>
@@ -97,7 +111,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
         {/* Language selector in mobile drawer */}
         <div className="p-3 sm:p-4 border-b border-primary-800/60 bg-primary-900/50 flex items-center justify-between">
-          <span className="text-xs text-primary-200 font-medium">Language:</span>
+          <span className="text-xs text-primary-200 font-medium">
+            {t('common.language', { defaultValue: 'Language' })}:
+          </span>
           <LanguageSelector compact />
         </div>
 
@@ -114,7 +130,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                 }`
               }
             >
-              {link.label}
+              {t(NAV_KEY_MAP[link.path] || link.label, { defaultValue: link.label })}
             </NavLink>
           ))}
         </nav>
@@ -124,13 +140,13 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           <a
             href={`tel:${EMERGENCY_NUMBER}`}
             className="flex items-center justify-center gap-2 w-full py-3 bg-emergency-700 hover:bg-emergency-600 text-white text-xs sm:text-sm font-bold rounded-xl shadow transition focus:outline-none focus:ring-2 focus:ring-white"
-            aria-label="Emergency phone call to 112"
+            aria-label={`Emergency phone call to ${EMERGENCY_NUMBER}`}
           >
             <PhoneCall className="w-4 h-4" aria-hidden="true" />
-            <span>Emergency: Call 112</span>
+            <span>{t('emergency.call_112_now', { defaultValue: 'Emergency: Call 112' })}</span>
           </a>
           <span className="text-[10px] text-slate-300 block text-center">
-            24/7 National Emergency Toll-Free
+            {t('emergency.toll_free_national', { defaultValue: '24/7 National Emergency Toll-Free' })}
           </span>
         </div>
       </div>

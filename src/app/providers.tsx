@@ -1,55 +1,91 @@
-import React, { createContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { I18nextProvider, useTranslation } from 'react-i18next';
+import i18n from '@/i18n/config';
 import { Language } from '@/types/content';
-import { hindiTranslations } from '@/content/hi/translations';
-import { marathiTranslations } from '@/content/mr/translations';
+import {
+  getTopicsData,
+  getLawsData,
+  getHelpResourcesData,
+  getEmergencyContacts,
+  getFaqsData,
+  getQuizzesData,
+  getWorkflowsData,
+  getConcernsList,
+  getSafeNextStepsFlows,
+} from '@/content';
+import { TopicItem, LawItem, FAQItem } from '@/types/content';
+import { HelpResource, EmergencyContact } from '@/types/resources';
+import { QuizTopic } from '@/types/quiz';
+import { WorkflowGuide, SafeNextStepsFlowData, ConcernOption } from '@/types/workflow';
 
-interface LanguageContextType {
+export interface LanguageContextType {
   currentLanguage: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, options?: any) => string;
+  topicsData: TopicItem[];
+  lawsData: LawItem[];
+  helpResourcesData: HelpResource[];
+  emergencyContacts: EmergencyContact[];
+  faqsData: FAQItem[];
+  quizzesData: QuizTopic[];
+  workflowsData: WorkflowGuide[];
+  concernsList: ConcernOption[];
+  safeNextStepsFlows: Record<string, SafeNextStepsFlowData>;
 }
 
 export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const AppProviders: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>(() => {
-    try {
-      const saved = localStorage.getItem('nari_suraksha_lang');
-      if (saved === 'hi' || saved === 'mr' || saved === 'en') {
-        return saved;
-      }
-    } catch {
-      // fallback
-    }
-    return 'en';
-  });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('nari_suraksha_lang', currentLanguage);
-      document.documentElement.lang = currentLanguage;
-    } catch (e) {
-      console.warn('Unable to persist language to localStorage', e);
-    }
-  }, [currentLanguage]);
-
-  const t = useCallback(
-    (key: string): string => {
-      if (currentLanguage === 'hi' && hindiTranslations[key]) {
-        return hindiTranslations[key];
-      }
-      if (currentLanguage === 'mr' && marathiTranslations[key]) {
-        return marathiTranslations[key];
-      }
-      // Default to key or leave to caller default
-      return '';
-    },
-    [currentLanguage]
+const LanguageContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { t, i18n: activeI18n } = useTranslation();
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(
+    () => (activeI18n.language as Language) || 'en'
   );
 
+  useEffect(() => {
+    const handleLangChange = (lng: string) => {
+      if (lng === 'en' || lng === 'hi' || lng === 'mr') {
+        setCurrentLanguage(lng);
+      }
+    };
+    activeI18n.on('languageChanged', handleLangChange);
+    return () => {
+      activeI18n.off('languageChanged', handleLangChange);
+    };
+  }, [activeI18n]);
+
+  const setLanguage = useCallback(
+    (lang: Language) => {
+      activeI18n.changeLanguage(lang);
+      setCurrentLanguage(lang);
+    },
+    [activeI18n]
+  );
+
+  const value = useMemo(
+    () => ({
+      currentLanguage,
+      setLanguage,
+      t,
+      topicsData: getTopicsData(currentLanguage),
+      lawsData: getLawsData(currentLanguage),
+      helpResourcesData: getHelpResourcesData(currentLanguage),
+      emergencyContacts: getEmergencyContacts(currentLanguage),
+      faqsData: getFaqsData(currentLanguage),
+      quizzesData: getQuizzesData(currentLanguage),
+      workflowsData: getWorkflowsData(currentLanguage),
+      concernsList: getConcernsList(currentLanguage),
+      safeNextStepsFlows: getSafeNextStepsFlows(currentLanguage),
+    }),
+    [currentLanguage, setLanguage, t]
+  );
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+};
+
+export const AppProviders: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <LanguageContext.Provider value={{ currentLanguage, setLanguage: setCurrentLanguage, t }}>
-      {children}
-    </LanguageContext.Provider>
+    <I18nextProvider i18n={i18n}>
+      <LanguageContextProvider>{children}</LanguageContextProvider>
+    </I18nextProvider>
   );
 };

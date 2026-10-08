@@ -16,34 +16,37 @@ import { FeatureCard } from '@/components/common/FeatureCard';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { DisclaimerBox } from '@/components/common/DisclaimerBox';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
-import { topicsData } from '@/content/en/topics';
-import { emergencyContacts } from '@/content/en/resources';
 import { EMERGENCY_NUMBER } from '@/lib/constants';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export const HomePage: React.FC = () => {
   useDocumentTitle('Home');
+  const { topicsData, emergencyContacts, t } = useLanguage();
 
   return (
     <div className="space-y-12 pb-16">
       {/* Hero Section */}
       <PageHero
-        badge="National Awareness & Safety Initiative"
-        title="Knowledge, Rights & Safety Awareness for Women in India"
-        subtitle="Empowering women with clear, educational awareness on constitutional rights, domestic safety, workplace protections, cyber hygiene, and verified emergency helplines."
+        badge={t('home.hero_badge', { defaultValue: "India's Public Awareness Portal" })}
+        title={t('home.hero_title', { defaultValue: 'Empowering Women with Knowledge, Rights & Safe Guidance' })}
+        subtitle={t('home.hero_subtitle', {
+          defaultValue:
+            'Simple, calm, and legally accurate awareness information on rights, digital privacy, workplace safety, and verified emergency helplines.',
+        })}
       >
         <div className="flex flex-wrap gap-3">
           <Link
             to="/rights"
             className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-teal-300"
           >
-            <span>Explore 10 Safety Topics</span>
+            <span>{t('home.explore_rights_btn', { defaultValue: 'Explore Your Rights' })}</span>
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
           <Link
-            to="/get-help"
+            to="/what-to-do"
             className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary-800/90 hover:bg-primary-700 text-white font-medium text-sm border border-primary-600 transition-all focus:outline-none focus:ring-2 focus:ring-amber-300"
           >
-            <span>Verified Helplines</span>
+            <span>{t('home.safe_steps_btn', { defaultValue: 'What Should I Do?' })}</span>
           </Link>
         </div>
       </PageHero>
@@ -104,8 +107,11 @@ export const HomePage: React.FC = () => {
         <section aria-label="Portal core sections">
           <SectionHeading
             badge="Portal Domains"
-            title="Explore Safety & Legal Awareness"
-            subtitle="Access plain-language educational explanations of domestic safety, workplace mechanisms, cyber protections, and procedural safeguards."
+            title={t('home.core_domains_title', { defaultValue: 'Essential Safety Domains' })}
+            subtitle={t('home.core_domains_subtitle', {
+              defaultValue:
+                'Explore verified information across key areas of safety, law, and digital well-being.',
+            })}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

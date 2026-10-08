@@ -2,12 +2,14 @@ import React from 'react';
 import { PhoneCall, ExternalLink, ShieldCheck, AlertCircle, Calendar, UserCheck } from 'lucide-react';
 import { HelpResource } from '@/types/resources';
 import { EMERGENCY_NUMBER } from '@/lib/constants';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface ResourceCardProps {
   resource: HelpResource;
 }
 
 export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
+  const { t } = useLanguage();
   const isEmergency = resource.isEmergency112 || resource.contactValue === '112';
 
   return (
@@ -28,12 +30,12 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
           {resource.verificationStatus === 'verified' ? (
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200">
               <ShieldCheck className="w-3.5 h-3.5 text-teal-600" aria-hidden="true" />
-              <span>Verified Official Source</span>
+              <span>{t('common.verified', { defaultValue: 'Verified Official Source' })}</span>
             </span>
           ) : (
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-md bg-amber-50 text-amber-900 border border-amber-300">
               <AlertCircle className="w-3.5 h-3.5 text-amber-600" aria-hidden="true" />
-              <span>Verify from official source before public launch</span>
+              <span>{t('common.verify_warning', { defaultValue: 'Verify from official source before public launch' })}</span>
             </span>
           )}
         </div>

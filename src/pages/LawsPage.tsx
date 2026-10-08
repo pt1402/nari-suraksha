@@ -4,10 +4,11 @@ import { PageHero } from '@/components/common/PageHero';
 import { DisclaimerBox } from '@/components/common/DisclaimerBox';
 import { SearchBar } from '@/components/search/SearchBar';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
-import { lawsData } from '@/content/en/laws';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export const LawsPage: React.FC = () => {
   useDocumentTitle('Know the Law');
+  const { lawsData, t } = useLanguage();
   const [search, setSearch] = useState('');
 
   const filteredLaws = lawsData.filter((law) => {
@@ -24,9 +25,12 @@ export const LawsPage: React.FC = () => {
     <div className="space-y-12 pb-16">
       <PageHero
         icon={Scale}
-        badge="Statutory Legal Frameworks"
-        title="Know the Law: Acts & Protections"
-        subtitle="Plain-language educational summaries of foundational Indian legislations enacted to safeguard women’s safety, bodily integrity, workplace dignity, and family rights."
+        badge={t('laws.page_badge', { defaultValue: 'Statutory Legal Frameworks' })}
+        title={t('laws.page_title', { defaultValue: 'Know the Law: Acts & Protections' })}
+        subtitle={t('laws.page_subtitle', {
+          defaultValue:
+            'Plain-language educational summaries of foundational Indian legislations enacted to safeguard women’s safety, bodily integrity, workplace dignity, and family rights.',
+        })}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">

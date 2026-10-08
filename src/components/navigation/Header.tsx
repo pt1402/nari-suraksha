@@ -7,9 +7,23 @@ import { FontSizeAdjuster } from '../accessibility/FontSizeAdjuster';
 import { QuickExitButton } from '../emergency/QuickExitButton';
 import { GlobalSearch } from '../search/GlobalSearch';
 import { MobileMenu } from './MobileMenu';
+import { useLanguage } from '@/hooks/useLanguage';
+
+const NAV_KEY_MAP: Record<string, string> = {
+  '/': 'nav.home',
+  '/rights': 'nav.rights',
+  '/what-to-do': 'nav.what_to_do',
+  '/cyber-safety': 'nav.cyber_safety',
+  '/workplace': 'nav.workplace',
+  '/laws': 'nav.laws',
+  '/get-help': 'nav.get_help',
+  '/faq': 'nav.faq',
+  '/quiz': 'nav.quiz',
+};
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <header className="bg-primary-900 text-white border-b border-primary-800 shadow-sm">
@@ -17,7 +31,7 @@ export const Header: React.FC = () => {
       <div className="bg-primary-950/80 border-b border-primary-800/60 text-xs py-1 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div className="text-primary-300 font-medium hidden sm:inline-block">
-            Women’s Safety, Rights and Awareness Portal • India
+            {t('app.portal_subtitle', { defaultValue: 'Women’s Safety, Rights and Awareness Portal • India' })}
           </div>
           <div className="flex items-center gap-3 ml-auto">
             <FontSizeAdjuster />
@@ -43,7 +57,7 @@ export const Header: React.FC = () => {
                 {APP_NAME}
               </span>
               <span className="text-[10px] text-teal-300 font-medium tracking-wide block uppercase">
-                Awareness & Safety
+                {t('app.tagline', { defaultValue: 'Awareness & Safety' })}
               </span>
             </div>
           </Link>
@@ -66,7 +80,7 @@ export const Header: React.FC = () => {
                   }`
                 }
               >
-                {link.label}
+                {t(NAV_KEY_MAP[link.path] || link.label, { defaultValue: link.label })}
               </NavLink>
             ))}
           </nav>
@@ -77,25 +91,25 @@ export const Header: React.FC = () => {
               to="/rights"
               className="px-2.5 py-1.5 rounded text-xs font-medium text-primary-100 hover:bg-primary-800"
             >
-              Rights
+              {t('nav.rights', { defaultValue: 'Rights' })}
             </NavLink>
             <NavLink
               to="/what-to-do"
               className="px-2.5 py-1.5 rounded text-xs font-medium text-primary-100 hover:bg-primary-800"
             >
-              What To Do
+              {t('nav.what_to_do', { defaultValue: 'What To Do' })}
             </NavLink>
             <NavLink
               to="/laws"
               className="px-2.5 py-1.5 rounded text-xs font-medium text-primary-100 hover:bg-primary-800"
             >
-              Laws
+              {t('nav.laws', { defaultValue: 'Laws' })}
             </NavLink>
             <NavLink
               to="/get-help"
               className="px-2.5 py-1.5 rounded text-xs font-medium bg-teal-700 text-white hover:bg-teal-600"
             >
-              Get Help
+              {t('nav.get_help', { defaultValue: 'Get Help' })}
             </NavLink>
           </div>
 
