@@ -1,0 +1,17 @@
+{
+  "name": "NARI-SURAKSHA - Women's Safety & Rights Portal",
+  "short_name": "NARI-SURAKSHA",
+  "description": "India-focused Women's Safety, Rights and Awareness Portal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#312e81",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
