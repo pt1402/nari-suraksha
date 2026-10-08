@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, AlertCircle, Heart } from 'lucide-react';
-import { APP_NAME, FOOTER_LINKS, EMERGENCY_NUMBER, WOMEN_HELPLINE_NATIONAL, CYBER_CRIME_HELPLINE } from '@/lib/constants';
+import { Shield, AlertCircle, Heart, PhoneCall } from 'lucide-react';
+import { APP_NAME, FOOTER_LINKS, EMERGENCY_NUMBER } from '@/lib/constants';
 import { DisclaimerBox } from '../common/DisclaimerBox';
 
 export const Footer: React.FC = () => {
@@ -25,7 +25,7 @@ export const Footer: React.FC = () => {
             <p className="text-xs sm:text-sm text-primary-300 leading-relaxed">
               India-focused public awareness portal dedicated to women’s legal rights, cyber safety, workplace protections, and verified official help contacts.
             </p>
-            <div className="text-xs text-teal-300 bg-primary-900/70 p-2.5 rounded border border-primary-800">
+            <div className="text-xs text-teal-300 bg-primary-900/70 p-2.5 rounded-xl border border-primary-800">
               <span className="font-semibold block mb-0.5">Privacy First:</span>
               No registration, no tracking of personal incident data, and no login required.
             </div>
@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
 
           {/* Col 2: Quick Links */}
           <div>
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-primary-800 pb-1">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4 border-b border-primary-800 pb-1">
               Important Pages
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">
@@ -52,13 +52,13 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Awareness Topics */}
           <div>
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-primary-800 pb-1">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4 border-b border-primary-800 pb-1">
               Safety Domains
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">
               <li>
                 <Link to="/rights" className="hover:text-white transition-colors">
-                  Fundamental & Police Rights
+                  10 Core Awareness Topics
                 </Link>
               </li>
               <li>
@@ -85,32 +85,39 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Col 4: National Emergency Contacts */}
-          <div className="bg-primary-900/50 p-4 rounded-xl border border-primary-800">
-            <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+          <div className="bg-primary-900/50 p-4 rounded-2xl border border-primary-800 space-y-3">
+            <h3 className="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
               <AlertCircle className="w-4 h-4 text-amber-400" aria-hidden="true" />
               <span>National Helplines</span>
             </h3>
             <ul className="space-y-3 text-xs">
               <li className="flex items-center justify-between border-b border-primary-800/60 pb-2">
-                <span>All Emergencies (Police/Fire/Ambulance):</span>
-                <a href={`tel:${EMERGENCY_NUMBER}`} className="font-bold text-white bg-emergency-800 px-2 py-0.5 rounded hover:bg-emergency-700">
-                  {EMERGENCY_NUMBER}
+                <span>Emergency (Police/Fire/Med):</span>
+                <a
+                  href={`tel:${EMERGENCY_NUMBER}`}
+                  className="font-bold text-white bg-emergency-800 px-2.5 py-1 rounded-md hover:bg-emergency-700 inline-flex items-center gap-1"
+                  aria-label="Call emergency 112"
+                >
+                  <PhoneCall className="w-3 h-3" />
+                  <span>{EMERGENCY_NUMBER}</span>
                 </a>
               </li>
-              <li className="flex items-center justify-between border-b border-primary-800/60 pb-2">
-                <span>Women Helpline:</span>
-                <a href={`tel:${WOMEN_HELPLINE_NATIONAL}`} className="font-bold text-teal-300 hover:text-white">
-                  {WOMEN_HELPLINE_NATIONAL}
-                </a>
+              <li className="flex flex-col gap-0.5 border-b border-primary-800/60 pb-2">
+                <div className="flex items-center justify-between">
+                  <span>Women Helpline Reference:</span>
+                  <span className="font-semibold text-teal-300">1091</span>
+                </div>
+                <span className="text-[10px] text-amber-300">Verify from official source</span>
               </li>
-              <li className="flex items-center justify-between">
-                <span>Cyber Crime Helpline:</span>
-                <a href={`tel:${CYBER_CRIME_HELPLINE}`} className="font-bold text-teal-300 hover:text-white">
-                  {CYBER_CRIME_HELPLINE}
-                </a>
+              <li className="flex flex-col gap-0.5">
+                <div className="flex items-center justify-between">
+                  <span>Cyber Crime Helpline:</span>
+                  <span className="font-semibold text-teal-300">1930</span>
+                </div>
+                <span className="text-[10px] text-amber-300">Official MHA Cyber Reference</span>
               </li>
             </ul>
-            <div className="mt-4 pt-2 border-t border-primary-800 text-[11px] text-primary-300">
+            <div className="pt-2 border-t border-primary-800 text-[11px] text-primary-300">
               <span>Always prioritize calling 112 in life-threatening emergencies.</span>
             </div>
           </div>
