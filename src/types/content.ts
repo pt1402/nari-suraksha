@@ -61,9 +61,16 @@ export interface SourceCitation {
   id: string;
   title: string;
   organization: string;
+  publisher?: string;
   category: string;
   url?: string;
+  officialSourceUrl?: string;
   lastVerifiedDate: string;
-  verificationStatus: 'verified' | 'needs-verification' | 'placeholder';
+  verificationStatus: VerificationStatus;
+  verificationScope?: 'national-programme' | 'national-contact' | 'local-contact' | 'description-only' | 'pending';
+  verifiedClaim?: string;
+  accessedAt?: string;
+  limitations?: string;
+  nextReviewDueDate?: string;
   description: string;
 }

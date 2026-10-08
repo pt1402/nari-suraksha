@@ -224,7 +224,21 @@
     "category_national_helpline": "राष्ट्रीय हेल्पलाइन",
     "category_cyber_crime": "सायबर गुन्हे",
     "category_legal_aid": "कायदेशीर मदत",
-    "category_counseling_support": "समुपदेशन आणि साहाय्य"
+    "category_counseling_support": "समुपदेशन आणि साहाय्य",
+    "national_programme_verified": "राष्ट्रीय कार्यक्रम माहिती पडताळली",
+    "local_details_unverified_warning": "राष्ट्रीय कार्यक्रमाची माहिती पडताळली आहे; स्थानिक केंद्राच्या तपशीलांची स्वतंत्र पडताळणी आवश्यक आहे.",
+    "verify_contact_before_launch": "लाँच करण्यापूर्वी ही संपर्क माहिती अधिकृत स्रोताकडून पडताळून पहा.",
+    "verified_claim_label": "पडताळलेला दावा:",
+    "scope_label": "पडताळणी व्याप्ती:",
+    "limitations_label": "मर्यादा:",
+    "official_source_label": "अधिकृत स्रोत:",
+    "helpline_reference": "राष्ट्रीय संदर्भ:",
+    "unverified_reference": "प्रलंबित संदर्भ:",
+    "scope_national_programme": "राष्ट्रीय कार्यक्रम",
+    "scope_national_contact": "राष्ट्रीय संपर्क",
+    "scope_local_contact": "स्थानिक संपर्क",
+    "scope_description_only": "केवळ वर्णन",
+    "scope_pending": "पडताळणी प्रलंबित"
   },
   "help": {
     "page_badge": "अधिकृत हेल्पलाइन आणि साहाय्य",
@@ -382,6 +396,21 @@
     "financial_scam": "आर्थिक फसवणूक",
     "banking_fraud": "बँकिंग घोटाळा",
     "upi_safety": "यूपीआय सुरक्षा"
+  },
+  "sources": {
+    "page_badge": "स्रोत पडताळणी",
+    "page_title": "पडताळलेले अधिकृत स्रोत आणि कायदेशीर संदर्भ",
+    "page_subtitle": "NARI-SURAKSHA मध्ये संदर्भित अधिकृत सरकारी मंत्रालये, वैधानिक आयोग आणि पोर्टल्सचे पारदर्शक दस्तऐवजीकरण.",
+    "protocol_title": "पडताळणी प्रोटोकॉल:",
+    "protocol_desc": "संपूर्ण पारदर्शकता राखण्यासाठी, सर्व स्रोत नोंदी त्यांच्या सरकारी प्रकाशकासह सूचीबद्ध केल्या आहेत. जेव्हा अधिकृत सरकारी स्रोत दर्शविलेल्या अचूक दाव्याचे समर्थन करतो तेव्हाच संसाधने पडताळलेली म्हणून चिन्हांकित केली जातात.",
+    "publisher": "प्रकाशक:",
+    "claim_verified": "पडताळलेला दावा:",
+    "verification_scope": "पडताळणी व्याप्ती:",
+    "date_accessed": "पाहिल्याची तारीख:",
+    "last_verified": "अंतिम पडताळणी तारीख:",
+    "next_review": "पुढील आढावा तारीख:",
+    "limitations": "मर्यादा:",
+    "visit_official_source": "अधिकृत संकेतस्थळाला भेट द्या"
   },
   "footer": {
     "about_title": "NARI-SURAKSHA विषयी",

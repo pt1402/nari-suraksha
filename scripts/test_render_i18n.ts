@@ -1,10 +1,8 @@
 import i18n from '../src/i18n/config';
-import enTranslation from '../src/locales/en/translation.json';
-import hiTranslation from '../src/locales/hi/translation.json';
-import mrTranslation from '../src/locales/mr/translation.json';
+import { getHelpResourcesData } from '../src/content';
 
 async function testRuntimeI18n() {
-  console.log('Testing runtime i18n language switching and string resolution...\n');
+  console.log('Testing runtime i18n language switching, verified help resources, and source registry...\n');
 
   for (const lang of ['en', 'hi', 'mr'] as const) {
     await i18n.changeLanguage(lang);
@@ -17,37 +15,66 @@ async function testRuntimeI18n() {
       throw new Error(`Invalid disclaimer in ${lang}: ${globalDisc}`);
     }
 
-    // 2. Buttons
-    const readGuide = i18n.t('common.read_guide');
-    const readFullGuide = i18n.t('common.read_full_guide');
-    const exploreDetails = i18n.t('common.explore_details');
-    console.log(`  - Read Guide: "${readGuide}"`);
-    console.log(`  - Read Full Guide: "${readFullGuide}"`);
-    console.log(`  - Explore details: "${exploreDetails}"`);
+    // 2. Verified badges and scope warnings
+    const verifiedOfficial = i18n.t('common.verified_official_source');
+    const programmeVerified = i18n.t('resource.national_programme_verified');
+    const localDetailsWarning = i18n.t('resource.local_details_unverified_warning');
+    const verifyContactWarning = i18n.t('resource.verify_contact_before_launch');
+    console.log(`  - Verified Official Source: "${verifiedOfficial}"`);
+    console.log(`  - National Programme Verified: "${programmeVerified}"`);
+    console.log(`  - Local Details Warning: "${localDetailsWarning.slice(0, 50)}..."`);
+    console.log(`  - Verify Contact Warning: "${verifyContactWarning.slice(0, 50)}..."`);
 
-    // 3. Section headings
-    const intro = i18n.t('topic.plain_language_introduction');
-    const whatItMay = i18n.t('topic.what_it_may_include');
-    const examples = i18n.t('topic.illustrative_examples');
-    const reviewed = i18n.t('common.reviewed');
-    const saferStepsOverview = i18n.t('common.safer_steps_overview');
-    console.log(`  - Intro: "${intro}"`);
-    console.log(`  - What it may include: "${whatItMay}"`);
-    console.log(`  - Examples: "${examples}"`);
-    console.log(`  - Reviewed: "${reviewed}"`);
-    console.log(`  - Safer Steps: "${saferStepsOverview}"`);
+    // 3. Scope labels
+    const scopeProg = i18n.t('resource.scope_national_programme');
+    const scopeCont = i18n.t('resource.scope_national_contact');
+    const scopePend = i18n.t('resource.scope_pending');
+    console.log(`  - Scopes: ${scopeProg} | ${scopeCont} | ${scopePend}`);
 
-    // 4. Categories & Tags
-    const catDomestic = i18n.t('rights.category_domestic');
-    const catCyber = i18n.t('rights.category_cyber');
-    const catWorkplace = i18n.t('rights.category_workplace');
-    const tagDomestic = i18n.t('tag.domestic_violence');
-    const tagStalking = i18n.t('tag.stalking');
-    console.log(`  - Categories: ${catDomestic}, ${catCyber}, ${catWorkplace}`);
-    console.log(`  - Tags: ${tagDomestic}, ${tagStalking}\n`);
+    // 4. Sources page titles
+    const sourcesTitle = i18n.t('sources.page_title');
+    const claimVerified = i18n.t('sources.claim_verified');
+    console.log(`  - Sources Title: "${sourcesTitle}"`);
+    console.log(`  - Sources Claim Label: "${claimVerified}"`);
+
+    // 5. Help Resources Data verification
+    const resources = getHelpResourcesData(lang);
+    const r112 = resources.find((r) => r.id === 'res-er-112');
+    const r181 = resources.find((r) => r.id === 'res-whl-181');
+    const rOsc = resources.find((r) => r.id === 'res-one-stop-centres');
+    const rNcw = resources.find((r) => r.id === 'res-ncw-helpline');
+    const rNalsa = resources.find((r) => r.id === 'res-nalsa-legal-aid');
+    const rCyber = resources.find((r) => r.id === 'res-cyber-portal');
+
+    if (!r112 || r112.verificationStatus !== 'verified' || r112.verificationScope !== 'national-contact') {
+      throw new Error(`Invalid 112 resource in ${lang}`);
+    }
+    if (!r181 || r181.verificationStatus !== 'verified' || r181.verificationScope !== 'national-programme') {
+      throw new Error(`Invalid 181 resource in ${lang}`);
+    }
+    if (!rOsc || rOsc.verificationStatus !== 'verified' || rOsc.verificationScope !== 'national-programme') {
+      throw new Error(`Invalid OSC resource in ${lang}`);
+    }
+    if (!rNcw || rNcw.verificationStatus !== 'verified' || rNcw.verificationScope !== 'national-contact' || rNcw.contactValue !== '14490') {
+      throw new Error(`Invalid NCW resource in ${lang}`);
+    }
+    if (!rNalsa || rNalsa.verificationStatus !== 'verified' || rNalsa.verificationScope !== 'national-contact' || rNalsa.contactValue !== '15100') {
+      throw new Error(`Invalid NALSA resource in ${lang}`);
+    }
+    if (!rCyber || rCyber.verificationStatus !== 'needs-verification' || rCyber.verificationScope !== 'pending') {
+      throw new Error(`Cyber portal should remain needs-verification in ${lang}`);
+    }
+
+    console.log(`  - Checked 6 Help Resources in ${lang}:`);
+    console.log(`    * 112: ${r112.name} [${r112.verificationStatus} / ${r112.verificationScope}]`);
+    console.log(`    * 181: ${r181.name} [${r181.verificationStatus} / ${r181.verificationScope}]`);
+    console.log(`    * OSC: ${rOsc.name} [${rOsc.verificationStatus} / ${rOsc.verificationScope}]`);
+    console.log(`    * NCW: ${rNcw.name} [${rNcw.verificationStatus} / ${rNcw.verificationScope} / ${rNcw.contactValue}]`);
+    console.log(`    * NALSA: ${rNalsa.name} [${rNalsa.verificationStatus} / ${rNalsa.verificationScope} / ${rNalsa.contactValue}]`);
+    console.log(`    * Cyber: ${rCyber.name} [${rCyber.verificationStatus} / ${rCyber.verificationScope}]\n`);
   }
 
-  console.log('✅ Runtime i18n tests completed successfully!');
+  console.log('✅ All runtime i18n and verification registry tests passed successfully!');
 }
 
 testRuntimeI18n().catch((err) => {

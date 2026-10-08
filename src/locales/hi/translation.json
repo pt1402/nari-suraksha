@@ -224,7 +224,21 @@
     "category_national_helpline": "राष्ट्रीय हेल्पलाइन",
     "category_cyber_crime": "साइबर अपराध",
     "category_legal_aid": "कानूनी सहायता",
-    "category_counseling_support": "परामर्श एवं सहायता"
+    "category_counseling_support": "परामर्श एवं सहायता",
+    "national_programme_verified": "राष्ट्रीय कार्यक्रम जानकारी सत्यापित",
+    "local_details_unverified_warning": "राष्ट्रीय कार्यक्रम की जानकारी सत्यापित है; स्थानीय केंद्र के विवरण की अलग से पुष्टि आवश्यक है।",
+    "verify_contact_before_launch": "लॉन्च करने से पहले इस संपर्क जानकारी को आधिकारिक स्रोत से सत्यापित करें।",
+    "verified_claim_label": "सत्यापित दावा:",
+    "scope_label": "सत्यापन दायरा:",
+    "limitations_label": "सीमाएं:",
+    "official_source_label": "आधिकारिक स्रोत:",
+    "helpline_reference": "राष्ट्रीय संदर्भ:",
+    "unverified_reference": "लंबित संदर्भ:",
+    "scope_national_programme": "राष्ट्रीय कार्यक्रम",
+    "scope_national_contact": "राष्ट्रीय संपर्क",
+    "scope_local_contact": "स्थानीय संपर्क",
+    "scope_description_only": "केवल विवरण",
+    "scope_pending": "सत्यापन लंबित"
   },
   "help": {
     "page_badge": "आधिकारिक हेल्पलाइन और सहायता",
@@ -382,6 +396,21 @@
     "financial_scam": "वित्तीय घोटाला",
     "banking_fraud": "बैंकिंग धोखाधड़ी",
     "upi_safety": "यूपीआई सुरक्षा"
+  },
+  "sources": {
+    "page_badge": "स्रोत सत्यापन",
+    "page_title": "सत्यापित आधिकारिक स्रोत और कानूनी उद्धरण",
+    "page_subtitle": "NARI-SURAKSHA में संदर्भित आधिकारिक सरकारी मंत्रालयों, वैधानिक आयोगों और पोर्टलों का पारदर्शी दस्तावेजीकरण।",
+    "protocol_title": "सत्यापन प्रोटोकॉल:",
+    "protocol_desc": "पूर्ण सत्यनिष्ठा बनाए रखने के लिए, सभी स्रोत प्रविष्टियों को उनके सरकारी प्रकाशक के साथ अनुक्रमित किया गया है। संसाधनों को केवल तभी सत्यापित चिह्नित किया जाता है जब आधिकारिक सरकारी स्रोत प्रदर्शित सटीक दावे का समर्थन करता है।",
+    "publisher": "प्रकाशक:",
+    "claim_verified": "सत्यापित दावा:",
+    "verification_scope": "सत्यापन दायरा:",
+    "date_accessed": "एक्सेस तिथि:",
+    "last_verified": "अंतिम सत्यापन तिथि:",
+    "next_review": "अगली समीक्षा तिथि:",
+    "limitations": "सीमाएं:",
+    "visit_official_source": "आधिकारिक स्रोत पर जाएं"
   },
   "footer": {
     "about_title": "NARI-SURAKSHA के बारे में",

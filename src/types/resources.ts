@@ -2,6 +2,13 @@ import { VerificationStatus, PublicationState } from './content';
 
 export type ContactType = 'phone' | 'portal' | 'in-person' | 'mixed';
 
+export type VerificationScope =
+  | 'national-programme'
+  | 'national-contact'
+  | 'local-contact'
+  | 'description-only'
+  | 'pending';
+
 export interface HelpResource {
   id: string;
   name: string;
@@ -10,10 +17,18 @@ export interface HelpResource {
   contactType: ContactType;
   contactValue: string;
   officialUrl?: string;
+  officialSourceUrl: string;
+  sourceTitle: string;
+  publisher: string;
+  accessedAt: string;
   sourceOwner: string;
   sourceId: string;
   lastVerifiedDate: string;
+  nextReviewDueDate: string;
   verificationStatus: VerificationStatus;
+  verificationScope: VerificationScope;
+  verifiedClaim?: string;
+  limitations?: string;
   publicationStatus: PublicationState;
   reviewDate: string;
   safeDisplayNote: string;

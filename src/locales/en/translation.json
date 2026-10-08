@@ -224,7 +224,21 @@
     "category_national_helpline": "National Helpline",
     "category_cyber_crime": "Cyber Crime",
     "category_legal_aid": "Legal Aid",
-    "category_counseling_support": "Counseling & Support"
+    "category_counseling_support": "Counseling & Support",
+    "national_programme_verified": "National programme information verified",
+    "local_details_unverified_warning": "National programme information verified; local centre details require separate verification.",
+    "verify_contact_before_launch": "Verify this contact information from an official source before launch.",
+    "verified_claim_label": "Verified Claim:",
+    "scope_label": "Verification Scope:",
+    "limitations_label": "Limitations:",
+    "official_source_label": "Official Source:",
+    "helpline_reference": "National Reference:",
+    "unverified_reference": "Pending Reference:",
+    "scope_national_programme": "National Programme",
+    "scope_national_contact": "National Contact",
+    "scope_local_contact": "Local Contact",
+    "scope_description_only": "Description Only",
+    "scope_pending": "Pending Verification"
   },
   "help": {
     "page_badge": "Official Helplines & Support",
@@ -382,6 +396,21 @@
     "financial_scam": "Financial Scam",
     "banking_fraud": "Banking Fraud",
     "upi_safety": "UPI Safety"
+  },
+  "sources": {
+    "page_badge": "Source Verification",
+    "page_title": "Verified Official Sources & Legal Citations",
+    "page_subtitle": "Transparent documentation of official government ministries, statutory commissions, and portals referenced across NARI-SURAKSHA.",
+    "protocol_title": "Verification Protocol:",
+    "protocol_desc": "To maintain complete integrity, all source entries are indexed with their governmental publisher. Resources are marked verified only when the official government source supports the exact claim displayed.",
+    "publisher": "Publisher:",
+    "claim_verified": "Claim Verified:",
+    "verification_scope": "Verification Scope:",
+    "date_accessed": "Date Accessed:",
+    "last_verified": "Last Verified Date:",
+    "next_review": "Next Review Due:",
+    "limitations": "Limitations:",
+    "visit_official_source": "Official Website"
   },
   "footer": {
     "about_title": "About NARI-SURAKSHA",
