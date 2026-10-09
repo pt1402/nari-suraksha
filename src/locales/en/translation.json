@@ -34,7 +34,9 @@
     "immediate_danger_title": "Immediate Danger or Emergency?",
     "immediate_danger_desc": "Do not attempt complex administrative steps if your safety is compromised. Prioritize your physical safety and contact emergency dispatch immediately.",
     "dial_112_immediate": "Dial 112 Immediately",
-    "toll_free_national": "24/7 National Emergency Toll-Free"
+    "toll_free_national": "24/7 National Emergency Toll-Free",
+    "dismiss_banner": "Dismiss emergency banner",
+    "dismiss_banner_title": "Temporarily hide the emergency banner for this session"
   },
   "disclaimer": {
     "title": "Important Safety & Legal Notice",

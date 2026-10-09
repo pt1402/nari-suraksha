@@ -47,6 +47,7 @@ export const Header: React.FC = () => {
           {/* Brand Logo */}
           <Link
             to="/"
+            id="header-brand-link"
             className="flex items-center focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg p-0.5 shrink-0"
             aria-label="NARI-SURAKSHA — Women’s Safety, Rights & Awareness Portal"
           >
