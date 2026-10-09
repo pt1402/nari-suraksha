@@ -56,17 +56,17 @@ export const PrivacyPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Quick Exit & Device Safety Notice */}
+        {/* Device & Browser Safety Notice */}
         <section className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-6 sm:p-8 space-y-3 text-amber-950 shadow-sm">
           <div className="flex items-center gap-2">
             <AlertTriangle className="w-5 h-5 text-amber-700" />
-            <h3 className="text-base font-bold text-amber-900">Browser History & Quick Exit Disclosure</h3>
+            <h3 className="text-base font-bold text-amber-900">Browser History & Device Safety Notice</h3>
           </div>
           <p className="text-xs sm:text-sm leading-relaxed font-semibold">
-            Quick Exit may not erase browser history, device records, network logs, or cached content. Use it only if it is safe for you.
+            This portal does not guarantee that browser history, device records, network logs, or cached content will be hidden or erased. Use a safer device or browser if you need additional privacy.
           </p>
           <p className="text-xs sm:text-sm text-amber-900/90 leading-relaxed">
-            If you share your computer or mobile device with others, consider browsing in an "Incognito" or "Private Window" and closing the window when done, or manually clearing recent history if safe to do so.
+            If you share your computer or mobile device with others, consider browsing in an "Incognito" or "Private Window" and closing the window when done, or using a safer device if you need additional privacy.
           </p>
         </section>
       </div>

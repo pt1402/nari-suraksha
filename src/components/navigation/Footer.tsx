@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, AlertCircle, Heart, PhoneCall } from 'lucide-react';
+import { AlertCircle, Heart, PhoneCall } from 'lucide-react';
 import { APP_NAME, FOOTER_LINKS, EMERGENCY_NUMBER } from '@/lib/constants';
 import { DisclaimerBox } from '../common/DisclaimerBox';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -28,12 +28,19 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Col 1: About Portal */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="p-1.5 bg-teal-600 rounded-lg text-white">
-                <Shield className="w-5 h-5" aria-hidden="true" />
-              </div>
-              <span className="text-lg font-bold text-white tracking-wide">{APP_NAME}</span>
-            </div>
+            <Link
+              to="/"
+              className="inline-block focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg shrink-0"
+              aria-label="NARI-SURAKSHA — Women’s Safety, Rights & Awareness Portal"
+            >
+              <img
+                src="/brand/nari-suraksha-header.jpg"
+                alt="NARI-SURAKSHA — Women’s Safety, Rights & Awareness Portal"
+                width={500}
+                height={95}
+                className="block object-contain max-w-full w-[260px] sm:w-[320px] md:w-[360px] lg:w-full xl:max-w-[400px] h-auto"
+              />
+            </Link>
             <p className="text-xs sm:text-sm text-primary-300 leading-relaxed">
               {t('footer.about_desc', {
                 defaultValue:

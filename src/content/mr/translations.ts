@@ -16,7 +16,6 @@ export const marathiTranslations: Record<string, string> = {
   emergency_banner_text: 'तातडीच्या धोक्यात आहात का? त्वरित आपत्कालीन सेवांशी संपर्क साधा.',
   call_112_now: '112 ला कॉल करा',
   find_helplines: 'मदत केंद्र पहा',
-  quick_exit: 'त्वरित बाहेर पडा (Quick Exit)',
 
   // Common UI
   global_disclaimer: 'हे पोर्टल केवळ सामान्य जनजागृती माहिती प्रदान करते. हा कोणताही कायदेशीर, वैद्यकीय, समुपदेशन किंवा आपत्कालीन सल्ला नाही.',

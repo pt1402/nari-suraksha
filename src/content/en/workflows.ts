@@ -419,7 +419,7 @@ export const SAFE_NEXT_STEPS_FLOWS: Record<ConcernId, SafeNextStepsFlowData> = {
           'Having someone outside the home aware of your situation provides a vital safety lifeline.',
         options: [
           'Agree on a simple distress code or signal with a trusted friend, family member, or neighbor.',
-          'Check your phone privacy and ensure your web browsing history can be cleared quickly using the Quick Exit tool.',
+          'Check your device privacy and use a safer browser, device, or private browsing window if you need additional privacy.',
         ],
       },
       {

@@ -4,7 +4,6 @@ import { Menu, Search } from 'lucide-react';
 import { NAV_LINKS } from '@/lib/constants';
 import { LanguageSelector } from './LanguageSelector';
 import { FontSizeAdjuster } from '../accessibility/FontSizeAdjuster';
-import { QuickExitButton } from '../emergency/QuickExitButton';
 import { GlobalSearch } from '../search/GlobalSearch';
 import { MobileMenu } from './MobileMenu';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -36,7 +35,6 @@ export const Header: React.FC = () => {
           <div className="flex items-center gap-3 ml-auto">
             <FontSizeAdjuster />
             <LanguageSelector compact />
-            <QuickExitButton className="hidden sm:inline-flex" />
           </div>
         </div>
       </div>
@@ -113,7 +111,6 @@ export const Header: React.FC = () => {
 
           {/* Mobile search & hamburger controls */}
           <div className="flex items-center gap-1.5 xl:hidden">
-            <QuickExitButton className="sm:hidden" />
             <Link
               to="/search"
               className="p-2 rounded-lg bg-primary-800 text-primary-100 hover:text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-teal-400 md:hidden"

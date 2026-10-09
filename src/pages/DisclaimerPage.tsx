@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, ShieldAlert, Scale, PhoneCall, ExternalLink } from 'lucide-react';
+import { AlertTriangle, ShieldAlert, Scale, PhoneCall } from 'lucide-react';
 import { PageHero } from '@/components/common/PageHero';
 import { DisclaimerBox } from '@/components/common/DisclaimerBox';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
@@ -61,14 +61,14 @@ export const DisclaimerPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Section 4: Quick Exit Disclosure */}
+          {/* Section 4: Device & Browser Privacy Notice */}
           <div className="space-y-3 border-t border-slate-100 pt-6">
             <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <ExternalLink className="w-5 h-5 text-slate-700" />
-              <span>4. Quick Exit Safety Disclosure</span>
+              <AlertTriangle className="w-5 h-5 text-amber-700" />
+              <span>4. Device & Browser Privacy Notice</span>
             </h2>
             <p className="text-sm text-slate-700 leading-relaxed font-semibold bg-amber-50 p-3 rounded-lg border border-amber-200 text-amber-950">
-              Quick Exit may not erase browser history, device records, network logs, or cached content. Use it only if it is safe for you.
+              This portal does not guarantee that browser history, device records, network logs, or cached content will be hidden or erased. Use a safer device or browser if you need additional privacy.
             </p>
           </div>
         </div>

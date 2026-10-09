@@ -415,8 +415,9 @@ export const SafeNextStepsFlow: React.FC = () => {
             })}
           </p>
           <p>
-            {t('workflow.quick_exit_note', {
-              defaultValue: 'Use the Quick Exit button at the top of the screen at any time to instantly redirect to Google.',
+            {t('workflow.device_safety_note', {
+              defaultValue:
+                'This portal does not guarantee that browser history, device records, network logs, or cached content will be hidden or erased. Use a safer device or browser if you need additional privacy.',
             })}
           </p>
         </div>

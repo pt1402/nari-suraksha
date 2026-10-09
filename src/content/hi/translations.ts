@@ -16,7 +16,6 @@ export const hindiTranslations: Record<string, string> = {
   emergency_banner_text: 'क्या आप तत्काल खतरे में हैं? तुरंत आपातकालीन सेवाओं को कॉल करें।',
   call_112_now: '112 पर कॉल करें',
   find_helplines: 'हेल्पलाइन देखें',
-  quick_exit: 'त्वरित निकास (Quick Exit)',
 
   // Common UI
   global_disclaimer: 'यह पोर्टल केवल सामान्य जागरूकता जानकारी प्रदान करता है। यह कोई कानूनी, चिकित्सकीय, परामर्श, पुलिस या आपातकालीन सलाह नहीं है।',
