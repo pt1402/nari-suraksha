@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { X, Shield, PhoneCall } from 'lucide-react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { X, PhoneCall } from 'lucide-react';
 import { NAV_LINKS, EMERGENCY_NUMBER } from '@/lib/constants';
 import { LanguageSelector } from './LanguageSelector';
 import { GlobalSearch } from '../search/GlobalSearch';
@@ -127,16 +127,26 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         className="fixed inset-y-0 right-0 w-full max-w-[280px] min-[360px]:max-w-xs sm:max-w-sm bg-primary-950 text-white shadow-2xl flex flex-col z-10 border-l border-primary-800"
       >
         {/* Top bar of drawer */}
-        <div className="flex items-center justify-between p-4 border-b border-primary-800/80">
-          <div className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-teal-400" aria-hidden="true" />
-            <span className="font-bold text-xs sm:text-sm tracking-wider">NARI-SURAKSHA</span>
-          </div>
+        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-primary-800/80 gap-2 min-w-0">
+          <Link
+            to="/"
+            onClick={onClose}
+            className="flex items-center focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg p-0.5 shrink min-w-0"
+            aria-label="Go to NARI-SURAKSHA home"
+          >
+            <img
+              src="/brand/nari-suraksha-footer.png"
+              alt="NARI-SURAKSHA — Women’s Safety, Rights & Awareness Portal"
+              width={500}
+              height={95}
+              className="block object-contain max-w-full w-[170px] min-[360px]:w-[200px] sm:w-[230px] max-w-[240px] h-auto"
+            />
+          </Link>
           <button
             ref={closeButtonRef}
             type="button"
             onClick={onClose}
-            className="p-2 rounded-lg text-primary-200 hover:text-white hover:bg-primary-900 focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="p-2 rounded-lg text-primary-200 hover:text-white hover:bg-primary-900 focus:outline-none focus:ring-2 focus:ring-amber-400 shrink-0"
             aria-label={t('nav.close_menu', { defaultValue: 'Close navigation menu' })}
           >
             <X className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />

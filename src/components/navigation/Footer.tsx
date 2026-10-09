@@ -31,10 +31,10 @@ export const Footer: React.FC = () => {
             <Link
               to="/"
               className="inline-block focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg shrink-0"
-              aria-label="NARI-SURAKSHA — Women’s Safety, Rights & Awareness Portal"
+              aria-label="Go to NARI-SURAKSHA home"
             >
               <img
-                src="/brand/nari-suraksha-header.jpg"
+                src="/brand/nari-suraksha-footer.png"
                 alt="NARI-SURAKSHA — Women’s Safety, Rights & Awareness Portal"
                 width={500}
                 height={95}
