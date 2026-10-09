@@ -27,30 +27,67 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const prevPathnameRef = useRef(location.pathname);
   const { t } = useLanguage();
 
-  // Close menu when route changes
+  // Keep route tracker in sync when menu opens
   useEffect(() => {
-    onClose();
-  }, [location.pathname, onClose]);
+    if (isOpen) {
+      prevPathnameRef.current = location.pathname;
+    }
+  }, [isOpen, location.pathname]);
 
-  // Handle Escape key to close menu
+  // Close menu only when route actually changes while open
   useEffect(() => {
+    if (isOpen && prevPathnameRef.current !== location.pathname) {
+      prevPathnameRef.current = location.pathname;
+      onClose();
+    }
+  }, [isOpen, location.pathname, onClose]);
+
+  // Handle Escape key and focus trapping inside the drawer
+  useEffect(() => {
+    if (!isOpen) return;
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
         onClose();
+        return;
+      }
+
+      if (event.key === 'Tab' && drawerRef.current) {
+        const focusableElements = drawerRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusableElements || focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey) {
+          if (document.activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+          }
+        }
       }
     };
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      // Focus the close button when opened
-      setTimeout(() => {
-        closeButtonRef.current?.focus();
-      }, 50);
-    }
+    document.addEventListener('keydown', handleKeyDown);
+
+    // Focus the close button when opened
+    const timer = setTimeout(() => {
+      closeButtonRef.current?.focus();
+    }, 50);
 
     return () => {
+      clearTimeout(timer);
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -71,10 +108,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 lg:hidden"
+      className="fixed inset-0 z-[60] xl:hidden"
       role="dialog"
       aria-modal="true"
-      aria-label="Mobile Navigation Menu"
+      aria-label={t('nav.mobile_navigation', { defaultValue: 'Mobile Navigation Menu' })}
     >
       {/* Backdrop */}
       <div
@@ -85,8 +122,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
       {/* Drawer */}
       <div
+        id="mobile-navigation-menu"
         ref={drawerRef}
-        className="fixed inset-y-0 right-0 w-full max-w-xs sm:max-w-sm bg-primary-950 text-white shadow-2xl flex flex-col z-10 border-l border-primary-800"
+        className="fixed inset-y-0 right-0 w-full max-w-[280px] min-[360px]:max-w-xs sm:max-w-sm bg-primary-950 text-white shadow-2xl flex flex-col z-10 border-l border-primary-800"
       >
         {/* Top bar of drawer */}
         <div className="flex items-center justify-between p-4 border-b border-primary-800/80">
@@ -96,6 +134,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           </div>
           <button
             ref={closeButtonRef}
+            type="button"
             onClick={onClose}
             className="p-2 rounded-lg text-primary-200 hover:text-white hover:bg-primary-900 focus:outline-none focus:ring-2 focus:ring-amber-400"
             aria-label={t('nav.close_menu', { defaultValue: 'Close navigation menu' })}
@@ -123,6 +162,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             <NavLink
               key={link.path}
               to={link.path}
+              onClick={onClose}
               className={({ isActive }) =>
                 `flex items-center px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors ${isActive
                   ? 'bg-primary-800 text-teal-300 font-semibold border-l-4 border-teal-400'

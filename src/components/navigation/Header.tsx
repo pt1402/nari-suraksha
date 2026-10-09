@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, Search } from 'lucide-react';
 import { NAV_LINKS } from '@/lib/constants';
@@ -22,7 +22,19 @@ const NAV_KEY_MAP: Record<string, string> = {
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const hamburgerButtonRef = useRef<HTMLButtonElement>(null);
+  const wasOpenRef = useRef(false);
   const { t } = useLanguage();
+
+  // Return focus to hamburger button when mobile menu closes
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      wasOpenRef.current = true;
+    } else if (wasOpenRef.current) {
+      wasOpenRef.current = false;
+      hamburgerButtonRef.current?.focus();
+    }
+  }, [isMobileMenuOpen]);
 
   return (
     <header className="bg-primary-900 text-white border-b border-primary-800 shadow-sm">
@@ -120,11 +132,14 @@ export const Header: React.FC = () => {
               <Search className="w-5 h-5" aria-hidden="true" />
             </Link>
             <button
+              ref={hamburgerButtonRef}
               type="button"
-              onClick={() => setIsMobileMenuOpen(true)}
+              id="hamburger-menu-button"
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
               className="p-2 rounded-lg bg-primary-800 text-primary-100 hover:text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-amber-400"
-              aria-label="Open main menu"
+              aria-label={t('nav.open_menu', { defaultValue: 'Open navigation menu' })}
               aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation-menu"
             >
               <Menu className="w-6 h-6" aria-hidden="true" />
             </button>

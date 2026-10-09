@@ -22,8 +22,9 @@
     "sources": "Verified Sources",
     "accessibility": "Accessibility",
     "search": "Search",
-    "open_menu": "Open main menu",
-    "close_menu": "Close navigation menu"
+    "open_menu": "Open navigation menu",
+    "close_menu": "Close navigation menu",
+    "mobile_navigation": "Mobile navigation menu"
   },
   "emergency": {
     "banner_text": "In immediate danger? Call emergency services now.",
