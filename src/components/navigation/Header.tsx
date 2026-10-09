@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Shield, Menu, Search } from 'lucide-react';
-import { APP_NAME, NAV_LINKS } from '@/lib/constants';
+import { Menu, Search } from 'lucide-react';
+import { NAV_LINKS } from '@/lib/constants';
 import { LanguageSelector } from './LanguageSelector';
 import { FontSizeAdjuster } from '../accessibility/FontSizeAdjuster';
 import { QuickExitButton } from '../emergency/QuickExitButton';
@@ -43,23 +43,20 @@ export const Header: React.FC = () => {
 
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-3 sm:gap-4">
+        <div className="flex items-center justify-between min-h-16 py-1.5 sm:py-2 gap-2 sm:gap-4">
           {/* Brand Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg p-1 -ml-1 shrink-0"
+            className="flex items-center focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg p-0.5 shrink-0"
+            aria-label="NARI-SURAKSHA — Women’s Safety, Rights & Awareness Portal"
           >
-            <div className="p-2 bg-gradient-to-br from-teal-500 to-primary-700 rounded-xl shadow-inner text-white">
-              <Shield className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
-            </div>
-            <div>
-              <span className="text-lg sm:text-xl font-bold tracking-tight text-white block leading-tight">
-                {APP_NAME}
-              </span>
-              <span className="text-[10px] text-teal-300 font-medium tracking-wide block uppercase">
-                {t('app.tagline', { defaultValue: 'Awareness & Safety' })}
-              </span>
-            </div>
+            <img
+              src="/brand/nari-suraksha-header.jpg"
+              alt="NARI-SURAKSHA — Women’s Safety, Rights & Awareness Portal"
+              width={500}
+              height={95}
+              className="block object-contain max-w-full w-[130px] min-[360px]:w-[150px] min-[400px]:w-[180px] sm:w-[240px] md:w-[280px] lg:w-[360px] xl:w-[480px] max-w-[500px] h-auto"
+            />
           </Link>
 
           {/* Desktop Global Search Field */}
